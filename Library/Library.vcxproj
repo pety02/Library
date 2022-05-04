@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CustomString.cpp" />
+    <ClCompile Include="ExceptionHandler.cpp" />
     <ClCompile Include="Library.cpp" />
     <ClCompile Include="LibraryItem.cpp" />
   </ItemGroup>
