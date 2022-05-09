@@ -139,13 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CustomString.cpp" />
+    <ClCompile Include="String.cpp" />
     <ClCompile Include="ExceptionHandler.cpp" />
     <ClCompile Include="Library.cpp" />
     <ClCompile Include="LibraryItem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CustomString.h" />
+    <ClInclude Include="String.h" />
     <ClInclude Include="LibraryItems.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
