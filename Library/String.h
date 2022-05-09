@@ -10,14 +10,26 @@ private:
 	char* value;
 	size_t capacity;
 	size_t lastIndex;
-
+	
+	/**
+	 * \brief Creates a new instace of String class as a copy of other one. Does not return a value.
+	 * \param other - other is a pre-created instance of String, parameter of the method.
+	 */
 	void copy(const String& other);
+	/**
+	 * \brief Releases memory via deleting value of the String object (char array). Does not return a value.
+	 */
 	void destroy();
+	/**
+	 * \brief Resizes the value's char array of the instance from String class. Does not return a value.
+	 */
 	void resize();
 
 public:
+
 	String();
 	String(const String& other);
+	String(const char* value);
 	String(const char* value, size_t capacity, size_t lastIndex);
 	String& operator=(const String& other);
 	~String();

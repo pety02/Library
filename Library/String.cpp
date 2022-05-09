@@ -6,8 +6,8 @@
 
 void String::copy(const String& other)
 {
-	capacity = other.capacity;
 	lastIndex = other.lastIndex;
+	capacity = other.capacity;
 	value = new char[strlen(other.value) + 1];
 	strcpy_s(value, strlen(other.value) + 1, other.value);
 }
@@ -19,7 +19,7 @@ void String::resize()
 {
 	destroy();
 	capacity *= 2;
-	value = new char[capacity + 1];
+	value = new char[capacity];
 	lastIndex = 0;
 }
 
@@ -34,31 +34,32 @@ String::String(const String& other)
 {
 	copy(other);
 }
+String::String(const char* value)
+{
+	this->lastIndex = strlen(value) - 1;
+	this->capacity = ((this->lastIndex) % 8 == 0) ? ((this->lastIndex / 8) * 8) : (((this->lastIndex / 8) + 1) * 8);
+	this->value = new char[strlen(value) + 1];
+	strcpy_s(this->value, strlen(value) + 1, value);
+}
 String::String(const char* value, size_t capacity, size_t lastIndex)
 {
-	this->lastIndex = strlen(value);
+	this->lastIndex = strlen(value) - 1;
 	this->capacity = (0 <= capacity && this->lastIndex < capacity) ? capacity : 8;
-	this->value = new char[this->capacity];
-	strcpy_s(this->value, this->capacity, value);
+	this->value = new char[strlen(value) + 1];
+	strcpy_s(this->value, strlen(value) + 1, value);
 }
 String& String::operator=(const String& other)
 {
-	try
+	
+	if (this != &other)
 	{
-		if (this != &other)
-		{
-			destroy();
-			copy(other);
-			return *this;
-		}
-		else
-		{
-			throw std::exception_ptr();
-		}
-	} 
-	catch (std::exception_ptr eptr)
+		destroy();
+		copy(other);
+		return *this;
+	}
+	else
 	{
-		ExceptionHandler::handleExceptionPtr(eptr);
+		throw std::exception_ptr();
 	}
 }
 String::~String()

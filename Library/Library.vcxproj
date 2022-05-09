@@ -139,12 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Article.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="ExceptionHandler.cpp" />
     <ClCompile Include="Library.cpp" />
     <ClCompile Include="LibraryItem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Article.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="LibraryItems.h" />
   </ItemGroup>
