@@ -8,25 +8,25 @@ void String::copy(const String& other)
 {
 	lastIndex = other.lastIndex;
 	capacity = other.capacity;
-	value = new char[strlen(other.value) + 1];
-	strcpy_s(value, strlen(other.value) + 1, other.value);
+	buffer = new char[strlen(other.buffer) + 1];
+	strcpy_s(buffer, strlen(other.buffer) + 1, other.buffer);
 }
 void String::destroy()
 {
-	delete[] value;
+	delete[] buffer;
 }
 void String::resize()
 {
 	destroy();
 	capacity *= 2;
-	value = new char[capacity];
+	buffer = new char[capacity];
 	lastIndex = 0;
 }
 
 String::String()
 {
-	value = new char[1];
-	value[0] = '\0';
+	buffer = new char[1];
+	buffer[0] = '\0';
 	capacity = 8;
 	lastIndex = 0;
 }
@@ -38,8 +38,8 @@ String::String(const char* value)
 {
 	this->lastIndex = strlen(value) - 1;
 	this->capacity = ((this->lastIndex) % 8 == 0) ? ((this->lastIndex / 8) * 8) : (((this->lastIndex / 8) + 1) * 8);
-	this->value = new char[strlen(value) + 1];
-	strcpy_s(this->value, strlen(value) + 1, value);
+	this->buffer = new char[strlen(value) + 1];
+	strcpy_s(this->buffer, strlen(value) + 1, value);
 }
 String& String::operator=(const String& other)
 {
@@ -52,7 +52,7 @@ String& String::operator=(const String& other)
 	}
 	else
 	{
-		throw std::exception_ptr();
+		throw new std::exception_ptr();
 	}
 }
 String::~String()
@@ -64,8 +64,8 @@ String& String::operator=(const char* otherValue)
 {
 	lastIndex = strlen(otherValue) - 1;
 	capacity = (lastIndex % 8 == 0) ? ((lastIndex / 8) * 8) : (((lastIndex / 8) + 1) * 8);
-	value = new char[strlen(otherValue) + 1];
-	strcpy_s(value, strlen(otherValue) + 1, otherValue);
+	buffer = new char[strlen(otherValue) + 1];
+	strcpy_s(buffer, strlen(otherValue) + 1, otherValue);
 
 	return *this;
 }
@@ -77,10 +77,10 @@ String& String::operator+(const String& other)
 	size_t maxCapacity = capacity + other.capacity;
 	capacity = maxCapacity;
 
-	char* s = value;
-	value = new char[strlen(s) + strlen(other.value) + 1];
-	strcpy_s(value, strlen(s) + strlen(other.value) + 1, s);
-	strcat_s(value, strlen(s) + strlen(other.value) + 1, other.value);
+	char* s = buffer;
+	buffer = new char[strlen(s) + strlen(other.buffer) + 1];
+	strcpy_s(buffer, strlen(s) + strlen(other.buffer) + 1, s);
+	strcat_s(buffer, strlen(s) + strlen(other.buffer) + 1, other.buffer);
 	return *this;
 }
 String& String::operator+=(const String& other)
@@ -89,16 +89,30 @@ String& String::operator+=(const String& other)
 }
 char String::operator[](size_t index)
 {
-	return value[index];
+	if (index <= lastIndex)
+	{
+		return buffer[index];
+	}
+	else
+	{
+		throw new std::invalid_argument("Invalid index!");
+	}
 }
 const char String::operator[](size_t index) const
 {
-	return value[index];
+	if (index <= lastIndex)
+	{
+		return buffer[index];
+	}
+	else
+	{
+		throw new std::invalid_argument("Invalid index!");
+	}
 }
 
-char* String::getValue() const
+char* String::getBuffer() const
 {
-	return value;
+	return buffer;
 }
 size_t String::getCapacity() const
 {
@@ -115,15 +129,15 @@ bool String::isEmpty() const
 }
 bool String::compare(const String& other) const
 {
-	return (lastIndex == other.lastIndex && capacity == other.capacity && strcmp(value, other.value) == 0);
+	return (lastIndex == other.lastIndex && capacity == other.capacity && strcmp(buffer, other.buffer) == 0);
 }
 
 String& String::pushBack(const char c)
 {
 	if (lastIndex < capacity)
 	{
-		value[lastIndex + 1] = c;
 		++lastIndex;
+		buffer[lastIndex] = c;
 	}
 	else
 	{
@@ -145,10 +159,10 @@ String& String::pushBack(const char c)
 
 		for (size_t index = 0; index < thisCustomStringLastIndex; ++index)
 		{
-			value[index] = tempThisCustomString.value[index];
+			buffer[index] = tempThisCustomString.buffer[index];
 		}
-		value[thisCustomStringLastIndex] = c;
 		++lastIndex;
+		buffer[thisCustomStringLastIndex] = c;
 	}
 
 	return *this;
@@ -162,6 +176,6 @@ void String::toString()
 {
 	for (size_t index = 0; index <= lastIndex; ++index)
 	{
-		std::cout <<  value[index];
+		std::cout <<  buffer[index];
 	}
 }
