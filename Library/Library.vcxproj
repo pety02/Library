@@ -140,8 +140,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Article.cpp" />
+    <ClCompile Include="Book.cpp" />
+    <ClCompile Include="ItemFactory.cpp" />
+    <ClCompile Include="ItemValidator.cpp" />
+    <ClCompile Include="Series.cpp" />
     <ClCompile Include="String.cpp" />
-    <ClCompile Include="ExceptionHandler.cpp" />
     <ClCompile Include="Library.cpp" />
     <ClCompile Include="LibraryItem.cpp" />
   </ItemGroup>

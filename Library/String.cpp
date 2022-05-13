@@ -1,5 +1,4 @@
 #include "String.h"
-#include "ExceptionHandler.cpp"
 #include <cstring>
 #include <string>
 #include <stdexcept>
