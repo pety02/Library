@@ -1,17 +1,16 @@
-#include "Article.h"
-#include "ItemValidator.cpp"
+#include "ItemValidator.h"
 
 void Article::setTitle(const String title)
 {
-	this->title = (ItemValidatior::isValidTilte(title)) ? title : throw new std::invalid_argument("Invalid title!");
+	this->title = (ItemValidator::isValidTilte(title)) ? title : throw new std::invalid_argument("Invalid title!");
 }
 void Article::setAuthour(const String author)
 {
-	this->authour = (ItemValidatior::isValidAuthor(author)) ? author : throw new std::invalid_argument("Invalid author!");
+	this->authour = (ItemValidator::isValidAuthor(author)) ? author : throw new std::invalid_argument("Invalid author!");
 }
 void Article::setKeywords(String* keywords, size_t keywordsCount)
 {
-	if (ItemValidatior::isValidKeywords(keywords, keywordsCount))
+	if (ItemValidator::isValidKeywords(keywords, keywordsCount))
 	{
 		this->keywords = new String[keywordsCount];
 		for (size_t index = 0; index < keywordsCount; ++index)
@@ -26,7 +25,7 @@ void Article::setKeywords(String* keywords, size_t keywordsCount)
 }
 void Article::setKeywordsCount(size_t keywordsCount)
 {
-	this->keywordsCount = (ItemValidatior::isValidKeywordsCount(keywordsCount)) ? keywordsCount : throw new std::invalid_argument("Invalid keywords count!");
+	this->keywordsCount = (ItemValidator::isValidKeywordsCount(keywordsCount)) ? keywordsCount : throw new std::invalid_argument("Invalid keywords count!");
 }
 
 void Article::copy(const Article& other)

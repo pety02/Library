@@ -1,11 +1,46 @@
 #include <iostream>
 #include<cstring>
-#include "String.h"
-#include "LibraryItems.h"
-#include "ItemFactory.cpp"
+#include <stdexcept>
+#include "ItemFactory.h"
+#include "Dates.h"
 
 int main()
 {
-    LibraryItem* item = ItemFactory::create("Book");
-    return 0;
+    /*LibraryItem *item = nullptr;
+    try
+    {
+        item->getGenre();
+    }
+    catch (std::exception& ex)
+    {
+        std::cerr << ex.what() << std::endl;
+    }*/
+    DateTime* d = new DateTime();
+    std::cout << d->getDay() << "/" << d->getMonth() << "/" << d->getYear() << "-" << d->getHours() << ":" << d->getMinutes() << ":" << d->getSeconds();
+    /*try
+    {
+        LibraryItem* book1 = ItemFactory::create("Book");
+        //LibraryItem* book2 = ItemFactory::create("Book");
+        //std::cout << book1->getId() << std::endl;
+        //std::cout << book2->getId();
+        return 0;
+    }
+    catch (std::exception& ex)
+    {
+        std::cerr << ex.what() << std::endl;
+        std::cout << "Type cmd: ";
+        char* cmd = new char[256];
+        std::cin >> cmd;
+        String cmdStr = cmd;
+        LibraryItem* item = ItemFactory::create(cmdStr);
+        if (item != nullptr)
+        {
+            std::cout << item->getId() << std::endl;
+        }
+        else
+        {
+            std::cerr << ex.what();
+        }
+        return -1;
+    }*/
 }

@@ -3,7 +3,6 @@
 #define LIBRARYITEMS_H
 
 #include <string>
-#include "String.h"
 #include "Article.h"
 
 /// <summary>
@@ -32,14 +31,16 @@ enum Genre
 /// </summary>
 class LibraryItem
 {
-protected:
-	unsigned int id;
+private:
 	String title;
 	String publisher;
 	Genre genre;
 	String description;
 	unsigned int releaseYear;
 	double rating;
+
+protected:
+	unsigned int id;
 
 	/// <summary>
 	/// 

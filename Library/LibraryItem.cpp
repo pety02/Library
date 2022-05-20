@@ -1,6 +1,5 @@
-#include "LibraryItems.h"
+#include "ItemValidator.h"
 #include <cmath>
-#include "ItemValidator.cpp"
 
 LibraryItem::LibraryItem()
 {
@@ -24,54 +23,145 @@ LibraryItem::LibraryItem(const String title, const String publisher, Genre genre
 
 void LibraryItem::setGenre(Genre genre)
 {
-	this->genre = (ItemValidatior::isValidGenre(genre)) ? genre : throw new std::invalid_argument("Invalid genre!");
+	if (this != nullptr)
+	{
+		this->genre = (ItemValidator::isValidGenre(genre)) ? genre : throw std::invalid_argument("Invalid genre!");
+	}
+	else
+	{
+		throw std::runtime_error("The LibraryItem is null pointer. Genre can not be changed!");
+	}
 }
 void LibraryItem::setDecription(const String description)
 {
-	this->description = (ItemValidatior::isValidDescription(description)) ? description : throw new std::invalid_argument("Invalid description!");
+	if (this != nullptr)
+	{
+		this->description = (ItemValidator::isValidDescription(description)) ? description : throw std::invalid_argument("Invalid description!");
+	}
+	else
+	{
+		throw std::runtime_error("The LibraryItem is null pointer. Description can not be changed!");
+	}
 }
 void LibraryItem::setReleaseYear(unsigned int releaseYear)
 {
-	this->releaseYear = (ItemValidatior::isValidReleaseYear(releaseYear)) ? releaseYear : throw new std::invalid_argument("Invalid release year!");
+	if (this != nullptr)
+	{
+		this->releaseYear = (ItemValidator::isValidReleaseYear(releaseYear)) ? releaseYear : throw std::invalid_argument("Invalid release year!");
+	}
+	else
+	{
+		throw std::runtime_error("The LibraryItem is null pointer. ReleaseYear can not be changed!");
+	}
 }
 void LibraryItem::setTitle(const String title)
 {
-	this->title = (ItemValidatior::isValidTilte(title)) ? title : throw new std::invalid_argument("Invalid title!");
+	if (this != nullptr)
+	{
+		this->title = (ItemValidator::isValidTilte(title)) ? title : throw std::invalid_argument("Invalid title!");
+	}
+	else
+	{
+		throw std::runtime_error("The LibraryItem is null pointer. Title can not be changed!");
+	}
 }
 void LibraryItem::setPublisher(const String publisher)
 {
-	this->publisher = publisher;
+	if (this != nullptr)
+	{
+		this->publisher = publisher;
+	}
+	else
+	{
+		throw std::runtime_error("The LibraryItem is null pointer. Publisher can not be changed!");
+	}
 }
 void LibraryItem::setRating(double rating)
 {
-	this->rating = rating;
+	if (this != nullptr)
+	{
+		this->rating = rating;
+	}
+	else
+	{
+		throw std::runtime_error("The LibraryItem is null pointer. Rating can not be changed!");
+	}
 }
 
 unsigned int LibraryItem::getId() const
 {
-	return id;
+	if (this != nullptr)
+	{
+		return id;
+	}
+	else
+	{
+		throw std::runtime_error("The LibraryItem is null pointer. Id can not be readed!");
+	}
 }
 String LibraryItem::getTitle() const
 {
-	return title;
+	if (this != nullptr)
+	{
+		return title;
+	}
+	else
+	{
+		throw std::runtime_error("The LibraryItem is null pointer. Title can not be readed!");
+	}
 }
 String LibraryItem::getPublisher() const
 {
-	return publisher;
+	if (this != nullptr)
+	{
+		return publisher;
+	}
+	else
+	{
+		throw std::runtime_error("The LibraryItem is null pointer. Publisher can not be readed!");
+	}
 }
 Genre LibraryItem::getGenre() const
 {
-	return genre;
+	if (this != nullptr)
+	{
+		return genre;
+	}
+	else
+	{
+		throw std::runtime_error("The LibraryItem is null pointer. Genre can not be readed!");
+	}
 }
 String LibraryItem::getDecription() const
 {
-	return description;
+	if (this != nullptr)
+	{
+		return description;
+	}
+	else
+	{
+		throw std::runtime_error("The LibraryItem is null pointer. Description can not be readed!");
+	}
 }
 unsigned int LibraryItem::getReleaseYear() const
 {
-	return releaseYear;
+	if (this != nullptr)
+	{
+		return releaseYear;
+	}
+	else
+	{
+		throw std::runtime_error("The LibraryItem is null pointer. ReleaseYear can not be readed!");
+	}
 }
 double LibraryItem::getRating() const
 {
-	return rating;
+	if (this != nullptr)
+	{
+		return rating;
+	}
+	else
+	{
+		throw std::runtime_error("The LibraryItem is null pointer. Rating can not be readed!");
+	}
 }

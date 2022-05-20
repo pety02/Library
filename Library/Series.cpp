@@ -1,18 +1,18 @@
-#include "LibraryItems.h"
-#include "ItemValidator.cpp"
+#include "ItemValidator.h"
 
 Series::Series()
 {
 	setId();
-	title = String();
-	publisher = String();
-	genre = UNKNOWN;
-	description = String();
-	releaseYear = 1900;
-	rating = 0.0;
-	issn = String();
-	releaseMonth = 1;
-	number = 0;
+	setTitle(String());
+	setPublisher(String());
+	setGenre(UNKNOWN);
+	setDecription(String());
+	setReleaseYear(1900);
+	setRating(0.0);
+	setIssn(String());
+	setReleaseMonth(1);
+	setNumber(0);
+	setArticlesCount(0);
 	content = new Article[0];
 }
 Series::Series(const Series& other)
@@ -42,23 +42,23 @@ Series& Series::operator=(const Series& other)
 		destroy();
 		copy(other);
 	}
-
+	
 	return *this;
 }
 
 void Series::copy(const Series& other)
 {
-	id = other.id;
-	title = other.title;
-	publisher = other.publisher;
-	genre = other.genre;
-	description = other.description;
-	releaseYear = other.releaseYear;
-	rating = other.rating;
-	issn = other.issn;
-	releaseMonth = other.releaseMonth;
-	number = other.number;
-	articlesCount = other.articlesCount;
+	setId();
+	setTitle(other.getTitle());
+	setPublisher(other.getPublisher());
+	setGenre(other.getGenre());
+	setDecription(other.getDecription());
+	setReleaseYear(other.getReleaseYear());
+	setRating(other.getRating());
+	setIssn(other.getIssn());
+	setReleaseMonth(other.getReleaseMonth());
+	setNumber(other.getNumber());
+	setArticlesCount(other.getArticlesCount());
 	content = new Article[articlesCount];
 	for (size_t index = 0; index < articlesCount; ++index)
 	{
@@ -72,37 +72,79 @@ void Series::destroy()
 
 void Series::setId()
 {
-	id = (unsigned int)this + 's';
+	if (this != nullptr)
+	{
+		id = (unsigned int)this + 's';
+	}
+	else
+	{
+		throw std::runtime_error("The Series is null pointer. Id can not be set!");
+	}
 }
 void Series::setIssn(const String issn)
 {
-	this->issn = (ItemValidatior::isValidIssn(issn)) ? issn : throw new std::invalid_argument("Invalid issn!");
+	if (this != nullptr)
+	{
+		this->issn = (ItemValidator::isValidIssn(issn)) ? issn : throw std::invalid_argument("Invalid issn!");
+	}
+	else
+	{
+		throw std::runtime_error("The Series is null pointer. Issn can not be changed!");
+	}
 }
 void Series::setReleaseMonth(unsigned int releaseMonth)
 {
-	this->releaseMonth = (ItemValidatior::isValidReleaseMonth(releaseMonth)) ? releaseMonth : throw new std::invalid_argument("Invalid release month!");
+	if (this != nullptr)
+	{
+		this->releaseMonth = (ItemValidator::isValidReleaseMonth(releaseMonth)) ? releaseMonth : throw std::invalid_argument("Invalid release month!");
+	}
+	else
+	{
+		throw std::runtime_error("The Series is null pointer. ReleaseMonth can not be changed!");
+	}	
 }
 void Series::setNumber(unsigned int number)
 {
-	this->number = (ItemValidatior::isValidNumber(number)) ? number : throw new std::invalid_argument("Invalid number!");
+	if (this != nullptr)
+	{
+		this->number = (ItemValidator::isValidNumber(number)) ? number : throw std::invalid_argument("Invalid number!");
+	}
+	else
+	{
+		throw std::runtime_error("The Series is null pointer. Number can not be changed!");
+	}
 }
 void Series::setContent(Article* content, size_t articlesCount)
 {
-	if (ItemValidatior::isValidContent(content, articlesCount))
+	if (this != nullptr)
 	{
-		for (size_t index = 0; index < articlesCount; index++)
+		if (ItemValidator::isValidContent(content, articlesCount))
 		{
-			this->content[index] = content[index];
+			for (size_t index = 0; index < articlesCount; index++)
+			{
+				this->content[index] = content[index];
+			}
+		}
+		else
+		{
+			throw std::invalid_argument("Invalid content!");
 		}
 	}
 	else
 	{
-		throw new std::invalid_argument("Invalid content!");
+		throw std::runtime_error("The Series is null pointer. Content can not be changed!");
 	}
 }
 void Series::setArticlesCount(size_t keywordsCount)
 {
-	articlesCount = (ItemValidatior::isValidArticlesCount(articlesCount)) ? articlesCount : throw new std::invalid_argument("Invalid articles count!");
+	if (this != nullptr)
+	{
+		articlesCount = (ItemValidator::isValidArticlesCount(articlesCount)) ? articlesCount : throw std::invalid_argument("Invalid articles count!");
+	}
+	else
+	{
+		throw std::runtime_error("The Series is null pointer. ArticlesCount can not be changed!");
+	}
 }
 
 Series::~Series()
@@ -112,25 +154,67 @@ Series::~Series()
 
 unsigned int Series::getId() const
 {
-	return id;
+	if (this != nullptr)
+	{
+		return id;
+	}
+	else
+	{
+		throw std::runtime_error("The Series is null pointer. Id can not be readed!");
+	}
 }
 String Series::getIssn() const
 {
-	return issn;
+	if (this != nullptr)
+	{
+		return issn;
+	}
+	else
+	{
+		throw std::runtime_error("The Series is null pointer. Issn can not be readed!");
+	}
 }
 unsigned int Series::getReleaseMonth() const
 {
-	return releaseMonth;
+	if (this != nullptr)
+	{
+		return releaseMonth;
+	}
+	else
+	{
+		throw std::runtime_error("The Series is null pointer. ReleaseMonth can not be readed!");
+	}
 }
 unsigned int Series::getNumber() const
 {
-	return number;
+	if (this != nullptr)
+	{
+		return number;
+	}
+	else
+	{
+		throw std::runtime_error("The Series is null pointer. Number can not be readed!");
+	}
 }
 Article* Series::getContent() const
 {
-	return content;
+	if (this != nullptr)
+	{
+		return content;
+	}
+	else
+	{
+		throw std::runtime_error("The Series is null pointer. Content can not be readed!");
+	}
 }
 size_t Series::getArticlesCount() const
 {
-	return articlesCount;
+	if (this != nullptr)
+	{
+		return articlesCount;
+	}
+	else
+	{
+		throw std::runtime_error("The Series is null pointer. ArticlesCount can not be readed!");
+	}
 }
