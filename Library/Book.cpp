@@ -2,37 +2,94 @@
 
 Book::Book()
 {
-	setId();
-	setTitle(String());
-	setPublisher(String());
-	setGenre(UNKNOWN);
-	setDecription(String());
-	setReleaseYear(1900);
-	setRating(0.0);
-	setIsbn(String());
-	setAuthor(String());
-	setKeywordsCount(0);
-	keywords = new String[keywordsCount];
+	try 
+	{
+		setId();
+		setTitle(String());
+		setPublisher(String());
+		setGenre(UNKNOWN);
+		setDecription(String());
+		setReleaseYear(1900);
+		setRating(0.0);
+		setIsbn(String());
+		setAuthor(String());
+		setKeywordsCount(0);
+		keywords = new String[keywordsCount];
+	}
+	catch (std::invalid_argument& invalidArgumentEx)
+	{
+		String exMsg = invalidArgumentEx.what();
+		String msg = " Unable to initialize Book object!";
+		throw new std::invalid_argument((exMsg + msg).getBuffer());
+	}
+	catch (std::runtime_error& runtimeErr)
+	{
+		String exMsg = runtimeErr.what();
+		String msg = " Create non null pointer Book object!";
+		throw new std::runtime_error((exMsg + msg).getBuffer());
+	}
+	catch (std::exception& ex)
+	{
+		throw new std::exception(ex.what());
+	}
 }
 Book::Book(const Book& other)
 {
-	copy(other);
+	try 
+	{
+		copy(other);
+	}
+	catch (std::invalid_argument& invalidArgumentEx)
+	{
+		String exMsg = invalidArgumentEx.what();
+		String msg = " Unable to initialize Book object!";
+		throw new std::invalid_argument((exMsg + msg).getBuffer());
+	}
+	catch (std::runtime_error& runtimeErr)
+	{
+		String exMsg = runtimeErr.what();
+		String msg = " Create non null pointer Book object!";
+		throw new std::runtime_error((exMsg + msg).getBuffer());
+	}
+	catch (std::exception& ex)
+	{
+		throw new std::exception(ex.what());
+	}
 }
-Book::Book(const String title, const String publisher, Genre genre, const String description,
-	unsigned int releaseYear, double rating, const String isbn, const String author,
-	String* keywords, size_t keywordsCount)
+Book::Book(const String title, const String publisher, const Genre genre, const String description,
+	const unsigned int releaseYear, const double rating, const String isbn, const String author,
+	const String* keywords, const size_t keywordsCount)
 {
-	setId();
-	setTitle(title);
-	setPublisher(publisher);
-	setGenre(genre);
-	setDecription(description);
-	setReleaseYear(releaseYear);
-	setRating(rating);
-	setIsbn(isbn);
-	setAuthor(author);
-	setKeywordsCount(keywordsCount);
-	setKeywords(keywords, keywordsCount);
+	try
+	{
+		setId();
+		setTitle(title);
+		setPublisher(publisher);
+		setGenre(genre);
+		setDecription(description);
+		setReleaseYear(releaseYear);
+		setRating(rating);
+		setIsbn(isbn);
+		setAuthor(author);
+		setKeywordsCount(keywordsCount);
+		setKeywords(keywords, keywordsCount);
+	}
+	catch (std::invalid_argument& invalidArgumentEx)
+	{
+		String exMsg = invalidArgumentEx.what();
+		String msg = " Unable to initialize Book object!";
+		throw new std::invalid_argument((exMsg + msg).getBuffer());
+	}
+	catch (std::runtime_error& runtimeErr)
+	{
+		String exMsg = runtimeErr.what();
+		String msg = " Create non null pointer Book object!";
+		throw new std::runtime_error((exMsg + msg).getBuffer());
+	}
+	catch (std::exception& ex)
+	{
+		throw new std::exception(ex.what());
+	}
 }
 Book& Book::operator=(const Book& other)
 {
@@ -40,8 +97,6 @@ Book& Book::operator=(const Book& other)
 	{
 		destroy();
 		copy(other);
-
-		return *this;
 	}
 
 	return *this;
@@ -72,7 +127,7 @@ void Book::destroy()
 
 void Book::setId()
 {
-	if (true)
+	if (this != nullptr)
 	{
 		id = (unsigned int)this + 'b';
 	}
@@ -83,7 +138,7 @@ void Book::setId()
 }
 void Book::setIsbn(const String isbn)
 {
-	if (true)
+	if (this != nullptr)
 	{
 		this->isbn = (ItemValidator::isValidIsbn(isbn)) ? isbn : throw std::invalid_argument("Invalid isbn!");
 	}
@@ -94,7 +149,7 @@ void Book::setIsbn(const String isbn)
 }
 void Book::setAuthor(const String author)
 {
-	if (true)
+	if (this != nullptr)
 	{
 		this->author = (ItemValidator::isValidAuthor(author)) ? author : throw std::invalid_argument("Invalid author!");
 	}
@@ -103,9 +158,9 @@ void Book::setAuthor(const String author)
 		throw std::runtime_error("The Book is null pointer. Author can not be changed!");
 	}
 }
-void Book::setKeywords(String* keywords, size_t keywordsCount)
+void Book::setKeywords(const String* keywords, const size_t keywordsCount)
 {
-	if (true)
+	if (this != nullptr)
 	{
 		if (ItemValidator::isValidKeywords(keywords, keywordsCount))
 		{
@@ -125,9 +180,9 @@ void Book::setKeywords(String* keywords, size_t keywordsCount)
 		throw std::runtime_error("The Book is null pointer. Keywords can not be changed!");
 	}
 }
-void Book::setKeywordsCount(size_t keywordsCount)
+void Book::setKeywordsCount(const size_t keywordsCount)
 {
-	if (true)
+	if (this != nullptr)
 	{
 		this->keywordsCount = (ItemValidator::isValidKeywordsCount(keywordsCount)) ? keywordsCount : throw std::invalid_argument("Invalid keywords count!");
 	}
@@ -144,7 +199,7 @@ Book::~Book()
 
 unsigned int Book::getId() const
 {
-	if (true)
+	if (this != nullptr)
 	{
 		return id;
 	}
@@ -155,7 +210,7 @@ unsigned int Book::getId() const
 }
 String Book::getIsbn() const
 {
-	if (true)
+	if (this != nullptr)
 	{
 		return isbn;
 	}
@@ -166,7 +221,7 @@ String Book::getIsbn() const
 }
 String Book::getAuthor() const
 {
-	if (true)
+	if (this != nullptr)
 	{
 		return author;
 	}
@@ -177,7 +232,7 @@ String Book::getAuthor() const
 }
 String* Book::getKeywords() const
 {
-	if (true)
+	if (this != nullptr)
 	{
 		return keywords;
 	}
@@ -188,7 +243,7 @@ String* Book::getKeywords() const
 }
 size_t Book::getKeywordsCount() const
 {
-	if (true)
+	if (this != nullptr)
 	{
 		return keywordsCount;
 	}

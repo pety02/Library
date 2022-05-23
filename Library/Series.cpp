@@ -2,38 +2,96 @@
 
 Series::Series()
 {
-	setId();
-	setTitle(String());
-	setPublisher(String());
-	setGenre(UNKNOWN);
-	setDecription(String());
-	setReleaseYear(1900);
-	setRating(0.0);
-	setIssn(String());
-	setReleaseMonth(1);
-	setNumber(0);
-	setArticlesCount(0);
-	content = new Article[0];
+	try
+	{
+		setId();
+		setTitle(String());
+		setPublisher(String());
+		setGenre(UNKNOWN);
+		setDecription(String());
+		setReleaseYear(1900);
+		setRating(0.0);
+		setIssn(String());
+		setReleaseMonth(1);
+		setNumber(0);
+		setArticlesCount(0);
+		content = new Article[0];
+	}
+	catch (std::invalid_argument& invalidArgumentEx)
+	{
+		String exMsg = invalidArgumentEx.what();
+		String msg = " Unable to initialize Series object!";
+		throw new std::invalid_argument((exMsg + msg).getBuffer());
+	}
+	catch (std::runtime_error& runtimeErr)
+	{
+		String exMsg = runtimeErr.what();
+		String msg = " Create non null pointer Series object!";
+		throw new std::runtime_error((exMsg + msg).getBuffer());
+	}
+	catch (std::exception& ex)
+	{
+		throw new std::exception(ex.what());
+	}
 }
 Series::Series(const Series& other)
 {
-	copy(other);
+	try
+	{
+		copy(other);
+	}
+	catch (std::invalid_argument& invalidArgumentEx)
+	{
+		String exMsg = invalidArgumentEx.what();
+		String msg = " Unable to initialize Series object!";
+		throw new std::invalid_argument((exMsg + msg).getBuffer());
+	}
+	catch (std::runtime_error& runtimeErr)
+	{
+		String exMsg = runtimeErr.what();
+		String msg = " Create non null pointer Series object!";
+		throw new std::runtime_error((exMsg + msg).getBuffer());
+	}
+	catch (std::exception& ex)
+	{
+		throw new std::exception(ex.what());
+	}
 }
-Series::Series(const String title, const String publisher, Genre genre, const String description,
-	unsigned int releaseYear, double rating, const String issn, unsigned int releaseMonth,
-	unsigned int number, Article* content, size_t articlesCount)
+Series::Series(const String title, const String publisher, const Genre genre, const String description,
+	const unsigned int releaseYear, const double rating, const String issn, 
+	const unsigned int releaseMonth, const unsigned int number, const Article* content, 
+	const size_t articlesCount)
 {
-	setId();
-	setTitle(title);
-	setPublisher(publisher);
-	setGenre(genre);
-	setDecription(description);
-	setReleaseYear(releaseYear);
-	setRating(rating);
-	setIssn(issn);
-	setReleaseMonth(releaseMonth);
-	setNumber(number);
-	setContent(content, articlesCount);
+	try
+	{
+		setId();
+		setTitle(title);
+		setPublisher(publisher);
+		setGenre(genre);
+		setDecription(description);
+		setReleaseYear(releaseYear);
+		setRating(rating);
+		setIssn(issn);
+		setReleaseMonth(releaseMonth);
+		setNumber(number);
+		setContent(content, articlesCount);
+	}
+	catch (std::invalid_argument& invalidArgumentEx)
+	{
+		String exMsg = invalidArgumentEx.what();
+		String msg = " Unable to initialize Series object!";
+		throw new std::invalid_argument((exMsg + msg).getBuffer());
+	}
+	catch (std::runtime_error& runtimeErr)
+	{
+		String exMsg = runtimeErr.what();
+		String msg = " Create non null pointer Series object!";
+		throw new std::runtime_error((exMsg + msg).getBuffer());
+	}
+	catch (std::exception& ex)
+	{
+		throw new std::exception(ex.what());
+	}
 }
 Series& Series::operator=(const Series& other)
 {
@@ -92,7 +150,7 @@ void Series::setIssn(const String issn)
 		throw std::runtime_error("The Series is null pointer. Issn can not be changed!");
 	}
 }
-void Series::setReleaseMonth(unsigned int releaseMonth)
+void Series::setReleaseMonth(const unsigned int releaseMonth)
 {
 	if (this != nullptr)
 	{
@@ -103,7 +161,7 @@ void Series::setReleaseMonth(unsigned int releaseMonth)
 		throw std::runtime_error("The Series is null pointer. ReleaseMonth can not be changed!");
 	}	
 }
-void Series::setNumber(unsigned int number)
+void Series::setNumber(const unsigned int number)
 {
 	if (this != nullptr)
 	{
@@ -114,7 +172,7 @@ void Series::setNumber(unsigned int number)
 		throw std::runtime_error("The Series is null pointer. Number can not be changed!");
 	}
 }
-void Series::setContent(Article* content, size_t articlesCount)
+void Series::setContent(const Article* content, const size_t articlesCount)
 {
 	if (this != nullptr)
 	{
@@ -135,7 +193,7 @@ void Series::setContent(Article* content, size_t articlesCount)
 		throw std::runtime_error("The Series is null pointer. Content can not be changed!");
 	}
 }
-void Series::setArticlesCount(size_t keywordsCount)
+void Series::setArticlesCount(const size_t keywordsCount)
 {
 	if (this != nullptr)
 	{

@@ -1,27 +1,64 @@
 #include "ItemValidator.h"
-#include <cmath>
 
 LibraryItem::LibraryItem()
 {
-	title = String();
-	publisher = String();
-	genre = UNKNOWN;
-	description = String();
-	releaseYear = 1900;
-	rating = 0.0;
+	try
+	{
+		setTitle(String());
+		setPublisher(String());
+		setGenre(UNKNOWN);
+		setDecription(String());
+		setReleaseYear(1900);
+		setRating(0.0);
+	}
+	catch (std::invalid_argument& invalidArgumentEx)
+	{
+		String exMsg = invalidArgumentEx.what();
+		String msg = " Unable to initialize LibraryItem object!";
+		throw new std::invalid_argument((exMsg + msg).getBuffer());
+	}
+	catch (std::runtime_error& runtimeErr)
+	{
+		String exMsg = runtimeErr.what();
+		String msg = " Create non null pointer LibraryItem object!";
+		throw new std::runtime_error((exMsg + msg).getBuffer());
+	}
+	catch (std::exception& ex)
+	{
+		throw new std::exception(ex.what());
+	}
 }
-LibraryItem::LibraryItem(const String title, const String publisher, Genre genre,
-	const String description, unsigned int releaseYear, double rating)
+LibraryItem::LibraryItem(const String title, const String publisher, const Genre genre,
+	const String description, const unsigned int releaseYear, const double rating)
 {
-	setTitle(title);
-	setPublisher(publisher);
-	setGenre(genre);
-	setDecription(description);
-	setReleaseYear(releaseYear);
-	setRating(rating);
+	try
+	{
+		setTitle(title);
+		setPublisher(publisher);
+		setGenre(genre);
+		setDecription(description);
+		setReleaseYear(releaseYear);
+		setRating(rating);
+	}
+	catch (std::invalid_argument& invalidArgumentEx)
+	{
+		String exMsg = invalidArgumentEx.what();
+		String msg = " Unable to initialize LibraryItem object!";
+		throw new std::invalid_argument((exMsg + msg).getBuffer());
+	}
+	catch (std::runtime_error& runtimeErr)
+	{
+		String exMsg = runtimeErr.what();
+		String msg = " Create non null pointer LibraryItem object!";
+		throw new std::runtime_error((exMsg + msg).getBuffer());
+	}
+	catch (std::exception& ex)
+	{
+		throw new std::exception(ex.what());
+	}
 }
 
-void LibraryItem::setGenre(Genre genre)
+void LibraryItem::setGenre(const Genre genre)
 {
 	if (this != nullptr)
 	{
@@ -43,7 +80,7 @@ void LibraryItem::setDecription(const String description)
 		throw std::runtime_error("The LibraryItem is null pointer. Description can not be changed!");
 	}
 }
-void LibraryItem::setReleaseYear(unsigned int releaseYear)
+void LibraryItem::setReleaseYear(const unsigned int releaseYear)
 {
 	if (this != nullptr)
 	{
@@ -76,7 +113,7 @@ void LibraryItem::setPublisher(const String publisher)
 		throw std::runtime_error("The LibraryItem is null pointer. Publisher can not be changed!");
 	}
 }
-void LibraryItem::setRating(double rating)
+void LibraryItem::setRating(const double rating)
 {
 	if (this != nullptr)
 	{
@@ -96,7 +133,7 @@ unsigned int LibraryItem::getId() const
 	}
 	else
 	{
-		throw std::runtime_error("The LibraryItem is null pointer. Id can not be readed!");
+		throw new std::runtime_error("The LibraryItem is null pointer. Id can not be readed!");
 	}
 }
 String LibraryItem::getTitle() const
@@ -107,7 +144,7 @@ String LibraryItem::getTitle() const
 	}
 	else
 	{
-		throw std::runtime_error("The LibraryItem is null pointer. Title can not be readed!");
+		throw new std::runtime_error("The LibraryItem is null pointer. Title can not be readed!");
 	}
 }
 String LibraryItem::getPublisher() const
@@ -118,7 +155,7 @@ String LibraryItem::getPublisher() const
 	}
 	else
 	{
-		throw std::runtime_error("The LibraryItem is null pointer. Publisher can not be readed!");
+		throw new std::runtime_error("The LibraryItem is null pointer. Publisher can not be readed!");
 	}
 }
 Genre LibraryItem::getGenre() const
@@ -129,7 +166,7 @@ Genre LibraryItem::getGenre() const
 	}
 	else
 	{
-		throw std::runtime_error("The LibraryItem is null pointer. Genre can not be readed!");
+		throw new std::runtime_error("The LibraryItem is null pointer. Genre can not be readed!");
 	}
 }
 String LibraryItem::getDecription() const
@@ -140,7 +177,7 @@ String LibraryItem::getDecription() const
 	}
 	else
 	{
-		throw std::runtime_error("The LibraryItem is null pointer. Description can not be readed!");
+		throw new std::runtime_error("The LibraryItem is null pointer. Description can not be readed!");
 	}
 }
 unsigned int LibraryItem::getReleaseYear() const
@@ -151,7 +188,7 @@ unsigned int LibraryItem::getReleaseYear() const
 	}
 	else
 	{
-		throw std::runtime_error("The LibraryItem is null pointer. ReleaseYear can not be readed!");
+		throw new std::runtime_error("The LibraryItem is null pointer. ReleaseYear can not be readed!");
 	}
 }
 double LibraryItem::getRating() const
@@ -162,6 +199,6 @@ double LibraryItem::getRating() const
 	}
 	else
 	{
-		throw std::runtime_error("The LibraryItem is null pointer. Rating can not be readed!");
+		throw new std::runtime_error("The LibraryItem is null pointer. Rating can not be readed!");
 	}
 }

@@ -2,6 +2,9 @@
 #ifndef DATES_H
 #define DATES_H
 
+#include <iostream>
+#include <ctime>
+
 /// <summary>
 /// 
 /// </summary>
@@ -50,44 +53,44 @@ public:
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="d"></param>
+	/// <param name="other"></param>
 	/// <returns></returns>
-	virtual bool operator>(const Date& d) const;  
+	virtual bool operator>(const Date& other) const;
 	
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="d"></param>
+	/// <param name="other"></param>
 	/// <returns></returns>
-	virtual bool operator>=(const Date& d) const;
+	virtual bool operator>=(const Date& other) const;
 	
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="d"></param>
+	/// <param name="other"></param>
 	/// <returns></returns>
-	virtual bool operator<(const Date& d) const;
+	virtual bool operator<(const Date& other) const;
 	
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="d"></param>
+	/// <param name="other"></param>
 	/// <returns></returns>
-	virtual bool operator<=(const Date& d) const;
+	virtual bool operator<=(const Date& other) const;
 	
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="d"></param>
+	/// <param name="other"></param>
 	/// <returns></returns>
-	virtual bool operator==(const Date& d) const;
+	virtual bool operator==(const Date& other) const;
 	
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="d"></param>
+	/// <param name="other"></param>
 	/// <returns></returns>
-	virtual bool operator!=(const Date& d) const;
+	virtual bool operator!=(const Date& other) const;
 
 	/// <summary>
 	/// 
@@ -118,37 +121,37 @@ public:
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="day"></param>
+	/// <param name="days"></param>
 	/// <returns></returns>
-	virtual Date operator+(int day) const;   
+	virtual Date operator+(int days) const;   
 	
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="day"></param>
+	/// <param name="days"></param>
 	/// <returns></returns>
-	virtual Date operator-(int day) const;
+	virtual Date operator-(int days) const;
 	
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="day"></param>
+	/// <param name="days"></param>
 	/// <returns></returns>
-	virtual Date& operator+=(int day);      
+	virtual Date& operator+=(int days);      
 	
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="day"></param>
+	/// <param name="days"></param>
 	/// <returns></returns>
-	virtual Date& operator-=(int day);
+	virtual Date& operator-=(int days);
 	
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="d"></param>
+	/// <param name="other"></param>
 	/// <returns></returns>
-	virtual int operator-(const Date& d);
+	virtual int operator-(const Date& other);
 
 	/// <summary>
 	/// 
@@ -220,58 +223,57 @@ public:
 	/// <param name="hours"></param>
 	/// <param name="minutes"></param>
 	/// <param name="seconds"></param>
-	/// <param name="milliSeconds"></param>
 	DateTime(unsigned int year, unsigned int month, unsigned int day, 
 		unsigned int hours, unsigned int minutes, unsigned int seconds);
 
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="d"></param>
+	/// <param name="other"></param>
 	/// <returns></returns>
-	bool operator>(const DateTime& d) const;
+	bool operator>(const DateTime& other) const;
 
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="d"></param>
+	/// <param name="other"></param>
 	/// <returns></returns>
-	bool operator>=(const DateTime& d) const;
+	bool operator>=(const DateTime& other) const;
 
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="d"></param>
+	/// <param name="other"></param>
 	/// <returns></returns>
-	bool operator<(const DateTime& d) const;
+	bool operator<(const DateTime& other) const;
 
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="d"></param>
+	/// <param name="other"></param>
 	/// <returns></returns>
-	bool operator<=(const DateTime& d) const;
+	bool operator<=(const DateTime& other) const;
 
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="d"></param>
+	/// <param name="other"></param>
 	/// <returns></returns>
-	bool operator==(const DateTime& d) const;
+	bool operator==(const DateTime& other) const;
 
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="d"></param>
+	/// <param name="other"></param>
 	/// <returns></returns>
-	bool operator!=(const DateTime& d) const;
+	bool operator!=(const DateTime& other) const;
 
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="d"></param>
+	/// <param name="other"></param>
 	/// <returns></returns>
-	int operator-(const DateTime& d);
+	int operator-(const DateTime& other);
 
 	/// <summary>
 	/// 

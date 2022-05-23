@@ -156,6 +156,7 @@
     <ClInclude Include="ItemValidator.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="LibraryItems.h" />
+    <ClInclude Include="StringValidator.h" />
     <ClInclude Include="Users.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

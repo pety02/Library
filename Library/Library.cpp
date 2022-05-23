@@ -6,6 +6,11 @@
 
 int main()
 {
+    String str = "hey";
+    String* str2 = nullptr;
+    str2->operator+("haya");
+    //str2 = new String(str);
+    //str2->toString();
     /*LibraryItem *item = nullptr;
     try
     {

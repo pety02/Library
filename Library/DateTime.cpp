@@ -1,19 +1,38 @@
 #pragma warning(disable : 4996)
-#include <iostream>
-#include <ctime>
 #include "Dates.h"
 
 void DateTime::setHours(unsigned int hours)
 {
-	this->hours = (0 <= hours && hours <= 23) ? hours : throw std::invalid_argument("Invalid hours!");
+	if (this != nullptr)
+	{
+		this->hours = (0 <= hours && hours <= 23) ? hours : throw std::invalid_argument("Invalid hours!");
+	}
+	else
+	{
+		throw std::runtime_error("The DateTime is null pointer. Hours can not be changed!");
+	}
 }
 void DateTime::setMinutes(unsigned int minutes)
 {
-	this->minutes = (0 <= minutes && minutes <= 59) ? minutes : throw std::invalid_argument("Invalid minutes!");
+	if (this != nullptr)
+	{
+		this->minutes = (0 <= minutes && minutes <= 59) ? minutes : throw std::invalid_argument("Invalid minutes!");
+	}
+	else
+	{
+		throw std::runtime_error("The DateTime is null pointer. Minutes can not be changed!");
+	}
 }
 void DateTime::setSeconds(unsigned int seconds)
 {
-	this->seconds = (0 <= seconds && seconds <= 59) ? seconds : throw std::invalid_argument("Invalid seconds!");
+	if (this != nullptr)
+	{
+		this->seconds = (0 <= seconds && seconds <= 59) ? seconds : throw std::invalid_argument("Invalid seconds!");
+	}
+	else
+	{
+		throw std::runtime_error("The DateTime is null pointer. Seconds can not be changed!");
+	}
 }
 
 DateTime::DateTime()
@@ -24,6 +43,7 @@ DateTime::DateTime()
 	setMonth(1 + now->tm_mon);
 	setDay(now->tm_mday);
 	setHours(now->tm_hour);
+	
 	if (0 <= now->tm_sec && now->tm_sec <= 59)
 	{
 		setMinutes(now->tm_min);
@@ -33,10 +53,6 @@ DateTime::DateTime()
 	{
 		setMinutes(now->tm_min + 1);
 		setSeconds(0);
-	}
-	else
-	{
-		throw std::invalid_argument("Invalid seconds!");
 	}
 }
 DateTime::DateTime(unsigned int year, unsigned int month, unsigned int day)
@@ -59,123 +75,182 @@ DateTime::DateTime(unsigned int year, unsigned int month, unsigned int day,
 	setSeconds(seconds);
 }
 
-bool DateTime::operator>(const DateTime& d) const
+bool DateTime::operator>(const DateTime& other) const
 {
-	if (getYear() > d.getYear()) {
-		return true;
-	}
-	else if (getYear() == d.getYear()) {
-		if (getMonth() > d.getMonth()) {
+	if (this != nullptr)
+	{
+		if ((getYear() > other.getYear()) 
+			|| (getYear() == other.getYear() && getMonth() > other.getMonth()) 
+			|| (getMonth() == other.getMonth() && getDay() > other.getDay()) 
+			|| (getDay() == other.getDay() && getHours() > other.getHours()) 
+			|| (getHours() == other.getHours() && getMinutes() > other.getMinutes()) 
+			|| (getMinutes() == other.getMinutes() && getSeconds() > other.getSeconds())) 
+		{
 			return true;
 		}
-		else if (getMonth() == d.getMonth()) {
-			if (getDay() > d.getDay()) {
-				return true;
-			}
-			else if (getDay() == d.getDay())
+		
+		return false;
+	}
+	else
+	{
+		throw std::runtime_error("The DateTime is null pointer. Operator > (const DateTime& other) cannot be applied!");
+	}
+}
+
+bool DateTime::operator>=(const DateTime& other) const
+{
+	if (this != nullptr)
+	{
+		if (*this == other || *this > other) 
+		{
+			return true;
+		}
+
+		return false;
+	}
+	else
+	{
+		throw std::runtime_error("The DateTime is null pointer. Operator >= (const DateTime& other) cannot be applied!");
+	}
+}
+
+bool DateTime::operator<(const DateTime& other) const
+{
+	if (this != nullptr)
+	{
+		if (*this <= other && *this != other) 
+		{
+			return true;
+		}
+
+		return false;
+	}
+	else
+	{
+		throw std::runtime_error("The DateTime is null pointer. Operator < (const DateTime& other) cannot be applied!");
+	}
+}
+
+bool DateTime::operator<=(const DateTime& other) const
+{
+	if (this != nullptr)
+	{
+		if (*this == other || *this < other) 
+		{
+			return true;
+		}
+
+		return false;
+	}
+	else
+	{
+		throw std::runtime_error("The DateTime is null pointer. Operator <= (const DateTime& other) cannot be applied!");
+	}
+}
+
+bool DateTime::operator==(const DateTime& other) const
+{
+	if (this != nullptr)
+	{
+		if (getYear() == other.getYear()
+			&& getMonth() == other.getMonth()
+			&& getDay() == other.getDay()
+			&& getHours() == other.getHours()
+			&& getMinutes() == other.getMinutes()
+			&& getSeconds() == other.getSeconds()) 
+		{
+			return true;
+		}
+
+		return false;
+	}
+	else
+	{
+		throw std::runtime_error("The DateTime is null pointer. Operator == (const DateTime& other) cannot be applied!");
+	}
+}
+
+bool DateTime::operator!=(const DateTime& other) const
+{
+	if (this != nullptr)
+	{
+		if (*this != other) 
+		{
+			return true;
+		}
+
+		return false;
+	}
+	else
+	{
+		throw std::runtime_error("The DateTime is null pointer. Operator != (const DateTime& other) cannot be applied!");
+	}
+}
+
+int DateTime::operator-(const DateTime& other)
+{
+	if (this != nullptr)
+	{
+		if (*this < other) 
+		{
+			int daysBetweenTwoDates = 0;
+			DateTime dateBefore(*this);
+			while (dateBefore != other)
 			{
-				if (getHours() > d.getHours()) {
-					return true;
-				}
-				else if (getHours() == d.getHours()) {
-					if (getMinutes() > d.getMinutes())
-					{
-						return true;
-					}
-					else if (getMinutes() == d.getMinutes()) {
-						if (getSeconds() > d.getSeconds())
-						{
-							return true;
-						}
-					}
-				}
+				dateBefore += 1;
+				daysBetweenTwoDates++;
 			}
+			return daysBetweenTwoDates;
 		}
-	}
-	return false;
-}
-
-bool DateTime::operator>=(const DateTime& d) const
-{
-	if ((*this == d) || (*this > d)) {
-		return true;
-	}
-	return false;
-}
-
-bool DateTime::operator<(const DateTime& d) const
-{
-	if ((!(*this > d) && !(*this == d))) {
-		return true;
-	}
-	return false;
-}
-
-bool DateTime::operator<=(const DateTime& d) const
-{
-	if ((*this == d) || (*this < d)) {
-		return true;
-	}
-	return false;
-}
-
-bool DateTime::operator==(const DateTime& d) const
-{
-	if (getYear() == d.getYear()
-		&& getMonth() == d.getMonth()
-		&& getDay() == d.getDay()
-		&& getHours() == d.getHours()
-		&& getMinutes() == d.getMinutes()
-		&& getSeconds() == d.getSeconds()) {
-		return true;
-	}
-	return false;
-}
-
-bool DateTime::operator!=(const DateTime& d) const
-{
-	if (!(*this == d)) {
-		return true;
-	}
-	return false;
-}
-
-int DateTime::operator-(const DateTime& d)
-{
-	if (*this < d) {
-		int cnt = 0;
-		DateTime res(*this);
-		while (1) {
-			res += 1;
-			cnt++;
-			if (res == d) {
-				return cnt;
+		else if (*this > other) 
+		{
+			int daysBetweenTwoDates = 0;
+			DateTime dateBefore(other);
+			while (dateBefore != *this)
+			{
+				dateBefore += 1;
+				daysBetweenTwoDates++;
 			}
+			return daysBetweenTwoDates;
 		}
+		return 0;
 	}
-	else if (*this > d) {
-		int cnt = 0;
-		DateTime ret(d);
-		while (1) {
-			ret += 1;
-			cnt++;
-			if (ret == *this) {
-				return cnt;
-			}
-		}
+	else
+	{
+		throw std::runtime_error("The DateTime is null pointer. Operator - (const DateTime& other) cannot be applied!");
 	}
-	return 0;
 }
 
 unsigned int DateTime::getHours() const
 {
-	return hours;
+	if (this != nullptr)
+	{
+		return hours;
+	}
+	else
+	{
+		throw std::runtime_error("The DateTime is null pointer. Hours cannot be readed!");
+	}
 }
 unsigned int DateTime::getMinutes() const
 {
-	return minutes;
+	if (this != nullptr)
+	{
+		return minutes;
+	}
+	else
+	{
+		throw std::runtime_error("The DateTime is null pointer. Minutes cannot be readed!");
+	}
 }
 unsigned int DateTime::getSeconds() const
 {
-	return seconds;
+	if (this != nullptr)
+	{
+		return seconds;
+	}
+	else
+	{
+		throw std::runtime_error("The DateTime is null pointer. Seconds cannot be readed!");
+	}
 }

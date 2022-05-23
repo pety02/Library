@@ -3,6 +3,9 @@
 #define CUSTOMSTRING_H
 
 #include <iostream>
+#include "StringValidator.h"
+#include <cstring>
+#include <stdexcept>
 
 /// <summary>
 /// String class written by me in order to be able
@@ -27,12 +30,30 @@ private:
 	/// <summary>
 	/// <c>destroy</c> is a method for releaseing buffer's memory when it is needed.
 	/// </summary>
-	void destroy();
+	void destroy() const;
 	
 	/// <summary>
 	/// <c>resize</c> is a method for resizing string's buffer when it is needed.
 	/// </summary>
 	void resize();
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="buffer"></param>
+	void setBuffer(const char* buffer);
+	
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="capacity"></param>
+	void setCapacity(const size_t capacity);
+	
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="lastIndex"></param>
+	void setLastIndex(const size_t lastIndex);
 
 public:
 
@@ -132,7 +153,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	char operator[](size_t index); 
+	char operator[](size_t index) const; 
 	
 	/// <summary>
 	/// 
@@ -146,7 +167,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	const char operator[](size_t index) const; 
+	const char operator[](size_t index); 
 
 	/// <summary>
 	/// <c>getBuffer</c> - is a getter for buffer string's field.
@@ -213,7 +234,7 @@ public:
 	/// <summary>
 	/// 
 	/// </summary>
-	void toString(); 
+	void toString() const; 
 
 	/// <summary>
 	/// 

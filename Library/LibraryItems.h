@@ -2,7 +2,7 @@
 #ifndef LIBRARYITEMS_H
 #define LIBRARYITEMS_H
 
-#include <string>
+#include "String.h"
 #include "Article.h"
 
 /// <summary>
@@ -56,8 +56,8 @@ protected:
 	/// <param name="description"></param>
 	/// <param name="releaseYear"></param>
 	/// <param name="rating"></param>
-	LibraryItem(const String title, const String publisher, Genre genre, const String description,
-		unsigned int releaseYear, double rating);
+	LibraryItem(const String title, const String publisher, const Genre genre, const String description,
+		const unsigned int releaseYear, const double rating);
 
 	/// <summary>
 	/// 
@@ -68,7 +68,7 @@ protected:
 	/// 
 	/// </summary>
 	/// <param name="genre"></param>
-	void setGenre(Genre genre);
+	void setGenre(const Genre genre);
 	
 	/// <summary>
 	/// 
@@ -80,7 +80,7 @@ protected:
 	/// 
 	/// </summary>
 	/// <param name="releaseYear"></param>
-	void setReleaseYear(unsigned int releaseYear);
+	void setReleaseYear(const unsigned int releaseYear);
 
 public:
 	/// <summary>
@@ -99,7 +99,7 @@ public:
 	/// 
 	/// </summary>
 	/// <param name="rating"></param>
-	void setRating(double rating);
+	void setRating(const double rating);
 
 	/// <summary>
 	/// 
@@ -179,9 +179,9 @@ private:
 	/// <param name="author"></param>
 	/// <param name="keywords"></param>
 	/// <param name="keywordsCount"></param>
-	Book(const String title, const String publisher, Genre genre, const String description,
-		unsigned int releaseYear, double rating, const String isbn, const String author,
-		String* keywords, size_t keywordsCount);
+	Book(const String title, const String publisher, const Genre genre, const String description,
+		const unsigned int releaseYear, const double rating, const String isbn, const String author,
+		const String* keywords, const size_t keywordsCount);
 	
 	/// <summary>
 	/// 
@@ -223,13 +223,13 @@ private:
 	/// </summary>
 	/// <param name="keywords"></param>
 	/// <param name="keywordsCount"></param>
-	void setKeywords(String* keywords, size_t keywordsCount);
+	void setKeywords(const String* keywords, size_t keywordsCount);
 	
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <param name="keywordsCount"></param>
-	void setKeywordsCount(size_t keywordsCount);
+	void setKeywordsCount(const size_t keywordsCount);
 
 	/// <summary>
 	/// 
@@ -310,9 +310,10 @@ private:
 	/// <param name="number"></param>
 	/// <param name="content"></param>
 	/// <param name="articlesCount"></param>
-	Series(const String title, const String publisher, Genre genre, const String description,
-		unsigned int releaseYear, double rating, const String issn, unsigned int releaseMonth,
-		unsigned int number, Article* content, size_t articlesCount);
+	Series(const String title, const String publisher, const Genre genre, const String description,
+		const unsigned int releaseYear, const double rating, const String issn, 
+		const unsigned int releaseMonth, const unsigned int number, const Article* content, 
+		const size_t articlesCount);
 	
 	/// <summary>
 	/// 
@@ -347,26 +348,26 @@ private:
 	/// 
 	/// </summary>
 	/// <param name="releaseMonth"></param>
-	void setReleaseMonth(unsigned int releaseMonth);
+	void setReleaseMonth(const unsigned int releaseMonth);
 	
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <param name="number"></param>
-	void setNumber(unsigned int number);
+	void setNumber(const unsigned int number);
 	
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <param name="content"></param>
 	/// <param name="articlesCount"></param>
-	void setContent(Article* content, size_t articlesCount);
+	void setContent(const Article* content, const size_t articlesCount);
 	
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <param name="keywordsCount"></param>
-	void setArticlesCount(size_t keywordsCount);
+	void setArticlesCount(const size_t keywordsCount);
 
 	/// <summary>
 	/// 

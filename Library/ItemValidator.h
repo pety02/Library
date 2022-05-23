@@ -71,9 +71,9 @@ public:
 	/// </summary>
 	/// <param name="genre"></param>
 	/// <returns></returns>
-	static bool isValidGenre(Genre genre)
+	static bool isValidGenre(const Genre genre)
 	{
-		return (UNKNOWN <= genre&& genre < GENRE_COUNT);
+		return (Genre::UNKNOWN <= genre&& genre < Genre::GENRE_COUNT);
 	}
 	
 	/// <summary>
@@ -91,7 +91,7 @@ public:
 	/// </summary>
 	/// <param name="releaseYear"></param>
 	/// <returns></returns>
-	static bool isValidReleaseYear(unsigned int releaseYear)
+	static bool isValidReleaseYear(const unsigned int releaseYear)
 	{
 		return (1900 <= releaseYear && releaseYear <= 2022);
 	}
@@ -101,7 +101,7 @@ public:
 	/// </summary>
 	/// <param name="rating"></param>
 	/// <returns></returns>
-	static bool isValidRating(double rating)
+	static bool isValidRating(const double rating)
 	{
 		return (0.0 <= rating && rating <= 5.0);
 	}
@@ -149,7 +149,7 @@ public:
 	/// </summary>
 	/// <param name="keywordsCount"></param>
 	/// <returns></returns>
-	static bool isValidKeywordsCount(size_t keywordsCount)
+	static bool isValidKeywordsCount(const size_t keywordsCount)
 	{
 		return (0 <= keywordsCount);
 	}
@@ -160,7 +160,7 @@ public:
 	/// <param name="keywords"></param>
 	/// <param name="keywordsCount"></param>
 	/// <returns></returns>
-	static bool isValidKeywords(String* keywords, size_t keywordsCount)
+	static bool isValidKeywords(const String* keywords, const size_t keywordsCount)
 	{
 		return true;
 	}
@@ -180,7 +180,7 @@ public:
 	/// </summary>
 	/// <param name="releaseMonth"></param>
 	/// <returns></returns>
-	static bool isValidReleaseMonth(unsigned int releaseMonth)
+	static bool isValidReleaseMonth(const unsigned int releaseMonth)
 	{
 		return (1 <= releaseMonth && releaseMonth <= 12);
 	}
@@ -190,7 +190,7 @@ public:
 	/// </summary>
 	/// <param name="number"></param>
 	/// <returns></returns>
-	static bool isValidNumber(unsigned int number)
+	static bool isValidNumber(const unsigned int number)
 	{
 		return (0 <= number);
 	}
@@ -200,7 +200,7 @@ public:
 	/// </summary>
 	/// <param name="articlesCount"></param>
 	/// <returns></returns>
-	static bool isValidArticlesCount(size_t articlesCount)
+	static bool isValidArticlesCount(const size_t articlesCount)
 	{
 		return (0 <= articlesCount);
 	}
@@ -211,7 +211,7 @@ public:
 	/// <param name="content"></param>
 	/// <param name="articlesCount"></param>
 	/// <returns></returns>
-	static bool isValidContent(Article* content, size_t articlesCount)
+	static bool isValidContent(const Article* content, const size_t articlesCount)
 	{
 		String authourName = String();
 		bool isValidContentArticles = true;

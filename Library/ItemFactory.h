@@ -24,9 +24,9 @@ public:
 			{
 				return new Book();
 			}
-			catch (std::bad_alloc& ex)
+			catch (std::bad_alloc& badAllocEx)
 			{
-				std::cerr << ex.what() << std::endl;
+				throw new std::bad_alloc();
 			}
 		}
 		else if (strcmp(cmd.getBuffer(), "Series") == 0)
@@ -35,14 +35,14 @@ public:
 			{
 				return new Series();
 			}
-			catch (std::bad_alloc& ex)
+			catch (std::bad_alloc& badAllocEx)
 			{
-				std::cerr << ex.what() << std::endl;
+				throw new std::bad_alloc();
 			}
 		}
 		else
 		{
-			throw std::exception("Not supported library item!");
+			throw new std::exception("Not supported library item!");
 		}
 	}
 
@@ -52,7 +52,7 @@ public:
 	/// <param name="cmd"></param>
 	/// <param name="params"></param>
 	/// <returns></returns>
-	static LibraryItem* create(const String cmd, String* params)
+	static LibraryItem* create(const String cmd, const String* params)
 	{
 		if (strcmp(cmd.getBuffer(), "Book") == 0)
 		{
@@ -60,9 +60,9 @@ public:
 			{
 				return new Book();
 			}
-			catch (std::bad_alloc& ex)
+			catch (std::bad_alloc& badAllocEx)
 			{
-				std::cerr << ex.what() << std::endl;
+				throw new std::bad_alloc();
 			}
 		}
 		else if (strcmp(cmd.getBuffer(), "Series") == 0)
@@ -71,9 +71,9 @@ public:
 			{
 				return new Series();
 			}
-			catch (std::bad_alloc& ex)
+			catch (std::bad_alloc& badAllocEx)
 			{
-				std::cerr << ex.what() << std::endl;
+				throw new std::bad_alloc();
 			}
 		}
 		else
