@@ -6,22 +6,31 @@
 
 int main()
 {
-    String str = "hey";
+    /*String s = "hey, ";
+    String s1 = "misho";//operator =
+    s += s1;
+    std::cout << s.getBuffer();
+    
+    //String* s = new String();
+    //String str = "hey";
     String* str2 = nullptr;
-    str2->operator+("haya");
+    delete[] str2;*/
+    //str2->operator+("haya");
     //str2 = new String(str);
     //str2->toString();
-    /*LibraryItem *item = nullptr;
+    //LibraryItem *item = nullptr;
+    String* s = nullptr;
     try
     {
-        item->getGenre();
+        s->popBack();
     }
     catch (std::exception& ex)
     {
         std::cerr << ex.what() << std::endl;
-    }*/
-    DateTime* d = new DateTime();
-    std::cout << d->getDay() << "/" << d->getMonth() << "/" << d->getYear() << "-" << d->getHours() << ":" << d->getMinutes() << ":" << d->getSeconds();
+        return -1;
+    }
+    //DateTime* d = new DateTime();
+    //std::cout << d->getDay() << "/" << d->getMonth() << "/" << d->getYear() << "-" << d->getHours() << ":" << d->getMinutes() << ":" << d->getSeconds();
     /*try
     {
         LibraryItem* book1 = ItemFactory::create("Book");

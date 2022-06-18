@@ -9,6 +9,24 @@
 /// </summary>
 class ItemValidator
 {
+private:
+	static bool containsOnlyLetters(const String word)
+	{
+		bool areOnlyLetters = false;
+		char* tempWord = word.getBuffer();
+
+		while (*tempWord != '\0')
+		{
+			if(('a' <= *tempWord && *tempWord <= 'z') || ('A' <= *tempWord && *tempWord <= 'Z'))
+			{ 
+				areOnlyLetters = true;
+			}
+			
+			tempWord++;
+		}
+
+		return areOnlyLetters;
+	}
 public:
 	/// <summary>
 	/// 
@@ -18,7 +36,7 @@ public:
 	static bool isValidTilte(const String title)
 	{
 		bool isValidHeading = true;
-		if ((!title.isEmpty() && (1 <= title.getCapacity() && title.getCapacity() <= 30)
+		if ((!title.isEmpty() && (0 <= title.getLastIndex() && title.getLastIndex() <= 30)
 			&& ('A' <= title[0] && title[0] <= 'Z')) || (title.isEmpty()))
 		{
 			for (size_t index = 1; index <= title.getLastIndex(); ++index)
@@ -46,7 +64,7 @@ public:
 	static bool isValidPublisher(const String publisher)
 	{
 		bool isValidPublisherHouse = true;
-		if ((!publisher.isEmpty() && (1 <= publisher.getCapacity() && publisher.getCapacity() <= 30)
+		if ((!publisher.isEmpty() && (0 <= publisher.getCapacity() && publisher.getCapacity() <= 30)
 			&& ('A' <= publisher[0] && publisher[0] <= 'Z')) || (publisher.isEmpty()))
 		{
 			for (size_t index = 1; index <= publisher.getLastIndex(); ++index)
@@ -83,7 +101,7 @@ public:
 	/// <returns></returns>
 	static bool isValidDescription(const String description)
 	{
-		return ((!description.isEmpty() && (1 <= description.getCapacity() && description.getCapacity() <= 300)) || (description.isEmpty()));
+		return ((!description.isEmpty() && (0 <= description.getCapacity() && description.getCapacity() <= 300)) || (description.isEmpty()));
 	}
 	
 	/// <summary>
@@ -113,7 +131,31 @@ public:
 	/// <returns></returns>
 	static bool isValidIsbn(const String isbn)
 	{
-		return true;
+		int isbnLenght = strlen(isbn.getBuffer());
+		if (isbnLenght != 10)
+		{
+			return false;
+		}
+		int sumOfIsbnNumbers = 0;
+		for (size_t index = 0; index < 9; ++index)
+		{
+			int value = isbn[index] - '\0';
+			if (0 <= value && value <= 9)
+			{
+				sumOfIsbnNumbers += (value * (10 - index));
+				continue;
+			}
+			
+			return false;
+		}
+		char lastNumberOfIsbn = isbn[9];
+		if (lastNumberOfIsbn == 'X' || ('0' <= lastNumberOfIsbn && lastNumberOfIsbn <= '9'))
+		{
+			sumOfIsbnNumbers += ((lastNumberOfIsbn == 'X') ? 10 : (lastNumberOfIsbn - '0'));
+			return (sumOfIsbnNumbers % 11 == 0);
+		}
+		
+		return false;
 	}
 	
 	/// <summary>
@@ -162,7 +204,16 @@ public:
 	/// <returns></returns>
 	static bool isValidKeywords(const String* keywords, const size_t keywordsCount)
 	{
-		return true;
+		bool isValid = false;
+		for (size_t index = 0; index < keywordsCount; index++)
+		{
+			if (containsOnlyLetters(keywords[index]) && !keywords[index].isEmpty())
+			{
+				isValid = true;
+			}
+		}
+
+		return isValid;
 	}
 	
 	/// <summary>

@@ -24,7 +24,7 @@ public:
 			{
 				return new Book();
 			}
-			catch (std::bad_alloc& badAllocEx)
+			catch (const std::bad_alloc&)
 			{
 				throw new std::bad_alloc();
 			}
@@ -35,7 +35,7 @@ public:
 			{
 				return new Series();
 			}
-			catch (std::bad_alloc& badAllocEx)
+			catch (const std::bad_alloc&)
 			{
 				throw new std::bad_alloc();
 			}
@@ -60,7 +60,7 @@ public:
 			{
 				return new Book();
 			}
-			catch (std::bad_alloc& badAllocEx)
+			catch (const std::bad_alloc&)
 			{
 				throw new std::bad_alloc();
 			}
@@ -71,7 +71,7 @@ public:
 			{
 				return new Series();
 			}
-			catch (std::bad_alloc& badAllocEx)
+			catch (const std::bad_alloc&)
 			{
 				throw new std::bad_alloc();
 			}

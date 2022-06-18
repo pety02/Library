@@ -8,7 +8,7 @@
 /// <summary>
 /// 
 /// </summary>
-enum Genre
+enum class Genre
 {
 	UNKNOWN,
 
@@ -41,28 +41,6 @@ private:
 
 protected:
 	unsigned int id;
-
-	/// <summary>
-	/// 
-	/// </summary>
-	LibraryItem();
-	
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="title"></param>
-	/// <param name="publisher"></param>
-	/// <param name="genre"></param>
-	/// <param name="description"></param>
-	/// <param name="releaseYear"></param>
-	/// <param name="rating"></param>
-	LibraryItem(const String title, const String publisher, const Genre genre, const String description,
-		const unsigned int releaseYear, const double rating);
-
-	/// <summary>
-	/// 
-	/// </summary>
-	virtual void setId() = 0;
 	
 	/// <summary>
 	/// 
@@ -82,7 +60,29 @@ protected:
 	/// <param name="releaseYear"></param>
 	void setReleaseYear(const unsigned int releaseYear);
 
+	/// <summary>
+	/// 
+	/// </summary>
+	virtual void setId() = 0;
+
 public:
+	/// <summary>
+	/// 
+	/// </summary>
+	LibraryItem();
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="title"></param>
+	/// <param name="publisher"></param>
+	/// <param name="genre"></param>
+	/// <param name="description"></param>
+	/// <param name="releaseYear"></param>
+	/// <param name="rating"></param>
+	LibraryItem(const String title, const String publisher, const Genre genre, const String description,
+		const unsigned int releaseYear, const double rating);
+
 	/// <summary>
 	/// 
 	/// </summary>
@@ -182,24 +182,6 @@ private:
 	Book(const String title, const String publisher, const Genre genre, const String description,
 		const unsigned int releaseYear, const double rating, const String isbn, const String author,
 		const String* keywords, const size_t keywordsCount);
-	
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="other"></param>
-	/// <returns></returns>
-	Book& operator=(const Book& other);
-
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="other"></param>
-	void copy(const Book& other);
-	
-	/// <summary>
-	/// 
-	/// </summary>
-	void destroy();
 
 	/// <summary>
 	/// 
@@ -230,6 +212,24 @@ private:
 	/// </summary>
 	/// <param name="keywordsCount"></param>
 	void setKeywordsCount(const size_t keywordsCount);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="other"></param>
+	/// <returns></returns>
+	Book& operator=(const Book& other);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="other"></param>
+	void copy(const Book& other);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	void destroy();
 
 	/// <summary>
 	/// 
@@ -318,6 +318,42 @@ private:
 	/// <summary>
 	/// 
 	/// </summary>
+	void setId();
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="issn"></param>
+	void setIssn(const String issn);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="releaseMonth"></param>
+	void setReleaseMonth(const unsigned int releaseMonth);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="number"></param>
+	void setNumber(const unsigned int number);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="content"></param>
+	/// <param name="articlesCount"></param>
+	void setContent(const Article* content, const size_t articlesCount);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="keywordsCount"></param>
+	void setArticlesCount(const size_t keywordsCount);
+
+	/// <summary>
+	/// 
+	/// </summary>
 	/// <param name="other"></param>
 	/// <returns></returns>
 	Series& operator=(const Series& other);
@@ -327,47 +363,11 @@ private:
 	/// </summary>
 	/// <param name="other"></param>
 	void copy(const Series& other);
-	
-	/// <summary>
-	/// 
-	/// </summary>
-	void destroy();
 
 	/// <summary>
 	/// 
 	/// </summary>
-	void setId();
-	
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="issn"></param>
-	void setIssn(const String issn);
-	
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="releaseMonth"></param>
-	void setReleaseMonth(const unsigned int releaseMonth);
-	
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="number"></param>
-	void setNumber(const unsigned int number);
-	
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="content"></param>
-	/// <param name="articlesCount"></param>
-	void setContent(const Article* content, const size_t articlesCount);
-	
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="keywordsCount"></param>
-	void setArticlesCount(const size_t keywordsCount);
+	void destroy();
 
 	/// <summary>
 	/// 

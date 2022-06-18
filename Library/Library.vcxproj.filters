@@ -68,5 +68,8 @@
     <ClInclude Include="StringValidator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UserValidator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

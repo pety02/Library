@@ -22,29 +22,29 @@ unsigned int Date::getDaysInMonth()
 	}
 }
 
-void Date::setYear(unsigned int year)
+void Date::setYear(const unsigned int year)
 {
 	if (this != nullptr)
 	{
 		this->year = (1900 <= year && year <= 2022) ? year : throw std::invalid_argument("Invalid year!");
+		return;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Year can not be changed!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Year can not be changed!");
 }
-void Date::setMonth(unsigned int month)
+
+void Date::setMonth(const unsigned int month)
 {
 	if (this != nullptr)
 	{
 		this->month = (1 <= month && month <= 12) ? month : throw std::invalid_argument("Invalid month!");
+		return;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Month can not be changed!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Month can not be changed!");
 }
-void Date::setDay(unsigned int day)
+
+void Date::setDay(const unsigned int day)
 {
 	if (this != nullptr)
 	{
@@ -53,47 +53,106 @@ void Date::setDay(unsigned int day)
 		case 2:
 			if((year % 4 == 0 && year % 100 == 0) || (year % 4 == 0 && year % 100 != 0))
 			{
-				this->day = (1 <= day && day <= 29) ? day : throw std::invalid_argument("Invalid day!"); break;
+				this->day = (1 <= day && day <= 29) ? day : throw std::invalid_argument("Invalid day!"); return;
 			}
 			else
 			{
-				this->day = (1 <= day && day <= 28) ? day : throw std::invalid_argument("Invalid day!"); break;
+				this->day = (1 <= day && day <= 28) ? day : throw std::invalid_argument("Invalid day!"); return;
 			}
 		case 4:
 		case 6:
 		case 9:
-		case 11: this->day = (1 <= day && day <= 30) ? day : throw std::invalid_argument("Invalid day!"); break;
+		case 11: this->day = (1 <= day && day <= 30) ? day : throw std::invalid_argument("Invalid day!"); return;
 		case 1:
 		case 3:
 		case 5:
 		case 7:
 		case 8:
 		case 10:
-		case 12: this->day = (1 <= day && day <= 31) ? day : throw std::invalid_argument("Invalid day!"); break;
+		case 12: this->day = (1 <= day && day <= 31) ? day : throw std::invalid_argument("Invalid day!"); return;
 
-		default: throw std::invalid_argument("Invalid day!"); break;
+		default: throw std::invalid_argument("Invalid day!"); 
 		}
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Day can not be changed!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Day can not be changed!");
 }
 
 Date::Date()
 {
-	std::time_t t = std::time(0);   
-	std::tm* now = std::localtime(&t);
+	try
+	{
+		std::time_t t = std::time(0);
+		std::tm* now = std::localtime(&t);
 
-	setYear(1900 + now->tm_year);
-	setMonth(1 + now->tm_mon);
-	setDay(now->tm_mday);
+		setYear(1900 + now->tm_year);
+		setMonth(1 + now->tm_mon);
+		setDay(now->tm_mday);
+	}
+	catch (const std::invalid_argument& invalidArgumentEx)
+	{
+		throw new std::invalid_argument(invalidArgumentEx.what());
+	}
+	catch (const std::runtime_error& runtimeErr)
+	{
+		throw new std::runtime_error(runtimeErr.what());
+	}
+	catch (const std::exception& ex)
+	{
+		throw new std::exception(ex.what());
+	}
 }
-Date::Date(unsigned int year, unsigned int month, unsigned int day)
+
+Date::Date(const unsigned int year, const unsigned int month, const unsigned int day)
 {
-	setYear(year);
-	setMonth(month);
-	setDay(day);
+	try
+	{
+		setYear(year);
+		setMonth(month);
+		setDay(day);
+	}
+	catch (const std::invalid_argument& invalidArgumentEx)
+	{
+		throw new std::invalid_argument(invalidArgumentEx.what());
+	}
+	catch (const std::runtime_error& runtimeErr)
+	{
+		throw new std::runtime_error(runtimeErr.what());
+	}
+	catch (const std::exception& ex)
+	{
+		throw new std::exception(ex.what());
+	}
+}
+
+unsigned int Date::getYear() const
+{
+	if (this != nullptr)
+	{
+		return year;
+	}
+
+	throw std::runtime_error("The Date is null pointer. Year can not be readed!");
+}
+
+unsigned int Date::getMonth() const
+{
+	if (this != nullptr)
+	{
+		return month;
+	}
+
+	throw std::runtime_error("The Date is null pointer. Month can not be readed!");
+}
+
+unsigned int Date::getDay() const
+{
+	if (this != nullptr)
+	{
+		return day;
+	}
+
+	throw std::runtime_error("The Date is null pointer. Day can not be readed!");
 }
 
 bool Date::operator>(const Date& other) const
@@ -107,10 +166,8 @@ bool Date::operator>(const Date& other) const
 
 		return false;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Operator > (const Date& other) can not be applied!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Operator > (const Date& other) can not be applied!");
 }
 
 bool Date::operator>=(const Date& other) const
@@ -124,10 +181,8 @@ bool Date::operator>=(const Date& other) const
 
 		return false;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Operator >= (const Date& other) can not be applied!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Operator >= (const Date& other) can not be applied!");
 }
 
 bool Date::operator<(const Date& other) const
@@ -141,10 +196,8 @@ bool Date::operator<(const Date& other) const
 
 		return false;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Operator < (const Date& other) can not be applied!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Operator < (const Date& other) can not be applied!");
 }
 
 bool Date::operator<=(const Date& other) const
@@ -158,10 +211,8 @@ bool Date::operator<=(const Date& other) const
 
 		return false;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Operator <= (const Date& other) can not be applied!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Operator <= (const Date& other) can not be applied!");
 }
 
 bool Date::operator==(const Date& other) const
@@ -175,10 +226,8 @@ bool Date::operator==(const Date& other) const
 
 		return false;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Operator == (const Date& other) can not be applied!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Operator == (const Date& other) can not be applied!");
 }
 
 bool Date::operator!=(const Date& other) const
@@ -192,10 +241,8 @@ bool Date::operator!=(const Date& other) const
 
 		return false;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Operator != (const Date& other) can not be applied!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Operator != (const Date& other) can not be applied!");
 }
 
 Date& Date::operator++()
@@ -205,13 +252,11 @@ Date& Date::operator++()
 		*this += 1;
 		return *this;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Operator ++ () can not be applied!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Operator ++ () can not be applied!");
 }
 
-Date Date::operator++(int)
+Date Date::operator++(const int)
 {
 	if (this != nullptr)
 	{
@@ -219,10 +264,8 @@ Date Date::operator++(int)
 		Date nextDate(*this);
 		return nextDate;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Operator ++ (int) can not be applied!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Operator ++ (int) can not be applied!");
 }
 
 Date Date::operator--()
@@ -232,13 +275,11 @@ Date Date::operator--()
 		*this -= 1;
 		return *this;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Operator -- () can not be applied!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Operator -- () can not be applied!");
 }
 
-Date Date::operator--(int)
+Date Date::operator--(const int)
 {
 	if (this != nullptr)
 	{
@@ -246,13 +287,11 @@ Date Date::operator--(int)
 		Date previousDate(*this);
 		return previousDate;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Operator -- (int) can not be applied!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Operator -- (int) can not be applied!");
 }
 
-Date Date::operator+(int days) const
+Date Date::operator+(const int days) const
 {
 	if (this != nullptr)
 	{
@@ -260,13 +299,11 @@ Date Date::operator+(int days) const
 		increasedDate += days;
 		return increasedDate;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Operator + (int days) can not be applied!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Operator + (int days) can not be applied!");
 }
 
-Date Date::operator-(int days) const
+Date Date::operator-(const int days) const
 {
 	if (this != nullptr)
 	{
@@ -274,13 +311,11 @@ Date Date::operator-(int days) const
 		decreasedDate -= days;
 		return decreasedDate;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Operator - (int days) can not be applied!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Operator - (int days) can not be applied!");
 }
 
-Date& Date::operator+=(int days)
+Date& Date::operator+=(const int days)
 {
 	if (this != nullptr)
 	{
@@ -298,13 +333,11 @@ Date& Date::operator+=(int days)
 		}
 		return *this;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Operator += (int days) can not be applied!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Operator += (int days) can not be applied!");
 }
 
-Date& Date::operator-=(int days)
+Date& Date::operator-=(const int days)
 {
 	if (this != nullptr)
 	{
@@ -321,10 +354,8 @@ Date& Date::operator-=(int days)
 		}
 		return *this;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Operator -= (int days) can not be applied!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Operator -= (int days) can not be applied!");
 }
 
 int Date::operator-(const Date& other)
@@ -357,42 +388,6 @@ int Date::operator-(const Date& other)
 		}
 		return 0;
 	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Operator - (const Date& other) can not be applied!");
-	}
-}
-
-unsigned int Date::getYear() const
-{
-	if (this != nullptr)
-	{
-		return year;
-	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Year can not be readed!");
-	}
-}
-unsigned int Date::getMonth() const
-{
-	if (this != nullptr)
-	{
-		return month;
-	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Month can not be readed!");
-	}
-}
-unsigned int Date::getDay() const
-{
-	if (this != nullptr)
-	{
-		return day;
-	}
-	else
-	{
-		throw std::runtime_error("The Date is null pointer. Day can not be readed!");
-	}
+	
+	throw std::runtime_error("The Date is null pointer. Operator - (const Date& other) can not be applied!");
 }

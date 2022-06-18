@@ -19,6 +19,24 @@ private:
 	size_t lastIndex;
 	
 	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="buffer"></param>
+	void setBuffer(const char* buffer);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="capacity"></param>
+	void setCapacity(const size_t capacity);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="lastIndex"></param>
+	void setLastIndex(const size_t lastIndex);
+
+	/// <summary>
 	/// <c>copy</c> is a method for copying all fields of one 
 	/// string to another string when it is needed.
 	/// </summary>
@@ -36,24 +54,6 @@ private:
 	/// <c>resize</c> is a method for resizing string's buffer when it is needed.
 	/// </summary>
 	void resize();
-
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="buffer"></param>
-	void setBuffer(const char* buffer);
-	
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="capacity"></param>
-	void setCapacity(const size_t capacity);
-	
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="lastIndex"></param>
-	void setLastIndex(const size_t lastIndex);
 
 public:
 
@@ -83,6 +83,36 @@ public:
 	String(const char* value); 
 	
 	/// <summary>
+	/// Destructor for string. Destroys the string object when it already 
+	/// is not in use.
+	/// </summary>
+	~String();
+
+	/// <summary>
+	/// <c>getBuffer</c> - is a getter for buffer string's field.
+	/// </summary>
+	/// <returns>
+	/// Returns the value of string's buffer.
+	/// </returns>
+	char* getBuffer() const;
+
+	/// <summary>
+	/// <c>getCapacity</c> - is a getter for capacity string's field.
+	/// </summary>
+	/// <returns>
+	/// Returns the capacity of the string.
+	/// </returns>
+	size_t getCapacity() const;
+
+	/// <summary>
+	/// <c>getLastIndex</c> - is a getter for the lastIndex string's field. 
+	/// </summary>
+	/// <returns>
+	/// Returns the last index in string's buffer value.
+	/// </returns>
+	size_t getLastIndex() const;
+
+	/// <summary>
 	/// Operator = for string. Assigns <paramref name = "other" /> string 
 	/// to "this" string.
 	/// </summary>
@@ -97,12 +127,6 @@ public:
 	/// Returns reference to the modified string.
 	/// </returns>
 	String& operator=(const String& other); 
-	
-	/// <summary>
-	/// Destructor for string. Destroys the string object when it already 
-	/// is not in use.
-	/// </summary>
-	~String(); 
 
 	/// <summary>
 	/// Operator = for string. Assigns an existing string to another string.
@@ -114,7 +138,7 @@ public:
 	/// <returns>
 	/// Returns reference to the modified string.
 	/// </returns>
-	String& operator=(const char* otherValue); 
+	String& operator=(const char* other); 
 	
 	/// <author>
 	/// 
@@ -133,6 +157,13 @@ public:
 	/// <summary>
 	/// 
 	/// </summary>
+	/// <param name="other"></param>
+	/// <returns></returns>
+	String& operator+(const char* other);
+
+	/// <summary>
+	/// 
+	/// </summary>
 	/// <param name="other">
 	/// 
 	/// </param>
@@ -140,58 +171,41 @@ public:
 	/// Returns reference to the modified string.
 	/// </returns>
 	String& operator+=(const String& other); 
-	
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="index">
-	/// 
-	/// </param>
-	/// <exception cref = "">
-	///
-	/// </exception>
-	/// <returns>
-	/// 
-	/// </returns>
-	char operator[](size_t index) const; 
-	
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="index">
-	/// 
-	/// </param>
-	/// <exception cref = "">
-	///
-	/// </exception>
-	/// <returns>
-	/// 
-	/// </returns>
-	const char operator[](size_t index); 
 
 	/// <summary>
-	/// <c>getBuffer</c> - is a getter for buffer string's field.
+	/// 
 	/// </summary>
-	/// <returns>
-	/// Returns the value of string's buffer.
-	/// </returns>
-	char* getBuffer() const; 
+	/// <param name="other"></param>
+	/// <returns></returns>
+	String& operator+=(const char* other);
 	
 	/// <summary>
-	/// <c>getCapacity</c> - is a getter for capacity string's field.
+	/// 
 	/// </summary>
+	/// <param name="index">
+	/// 
+	/// </param>
+	/// <exception cref = "">
+	///
+	/// </exception>
 	/// <returns>
-	/// Returns the capacity of the string.
+	/// 
 	/// </returns>
-	size_t getCapacity() const; 
+	char operator[](const size_t index) const; 
 	
 	/// <summary>
-	/// <c>getLastIndex</c> - is a getter for the lastIndex string's field. 
+	/// 
 	/// </summary>
+	/// <param name="index">
+	/// 
+	/// </param>
+	/// <exception cref = "">
+	///
+	/// </exception>
 	/// <returns>
-	/// Returns the last index in string's buffer value.
+	/// 
 	/// </returns>
-	size_t getLastIndex() const; 
+	const char operator[](const size_t index); 
 
 	/// <summary>
 	/// 
@@ -211,6 +225,13 @@ public:
 	/// 
 	/// </returns>
 	bool compare(const String& other) const; 
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="other"></param>
+	/// <returns></returns>
+	bool compare(const char* other) const;
 	
 	/// <summary>
 	/// 
@@ -221,7 +242,7 @@ public:
 	/// <returns>
 	/// Returns reference to the modified string.
 	/// </returns>
-	String& pushBack(const char c); 
+	String& pushBack(const char symbol); 
 	
 	/// <summary>
 	/// 
@@ -246,7 +267,7 @@ public:
 	/// 
 	/// </param>
 	/// <returns></returns>
-	friend String append(const String& firstString, const String& secondString) 
+	friend String append(const String& firstString, const String& secondString)
 	{
 		char* s = new char[strlen(firstString.getBuffer()) + strlen(secondString.getBuffer()) + 1];
 		strcpy_s(s, strlen(firstString.getBuffer()) + strlen(secondString.getBuffer()) + 1, firstString.getBuffer());
