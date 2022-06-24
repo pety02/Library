@@ -3,9 +3,9 @@
 #define CUSTOMSTRING_H
 
 #include <iostream>
-#include "StringValidator.h"
 #include <cstring>
 #include <stdexcept>
+#include "StringValidator.h"
 
 /// <summary>
 /// String class written by me in order to be able
@@ -138,20 +138,42 @@ public:
 	/// <returns>
 	/// Returns reference to the modified string.
 	/// </returns>
-	String& operator=(const char* other); 
-	
-	/// <author>
-	/// 
-	/// </author>
+	String& operator=(const char* other);
+
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="other">
+	/// <param name="other"></param>
+	/// <returns></returns>
+	bool operator==(const char* other);
+
+	/// <summary>
 	/// 
-	/// </param>
-	/// <returns>
+	/// </summary>
+	/// <param name="other"></param>
+	/// <returns></returns>
+	bool operator==(const String& other);
+
+	/// <summary>
 	/// 
-	/// </returns>
+	/// </summary>
+	/// <param name="other"></param>
+	/// <returns></returns>
+	bool operator!=(const char* other);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="other"></param>
+	/// <returns></returns>
+	bool operator!=(const String& other);
+
+	/// <summary>
+	/// <c>operator+(const String& other)</c> is predefined operator in class <c>String</c> which
+	/// concatenates two <c>String</c> objects.
+	/// </summary>
+	/// <param name="other"></param>
+	/// <returns></returns>
 	String& operator+(const String& other); 
 	
 	/// <summary>
@@ -277,6 +299,20 @@ public:
 
 		return cs;
 	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="out"></param>
+	/// <returns></returns>
+	friend std::ostream& operator<<(std::ostream& out, const String str);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="in"></param>
+	/// <returns></returns>
+	friend std::istream& operator>>(std::istream& in, String str);
 };
 
 #endif

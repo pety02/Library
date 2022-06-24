@@ -232,6 +232,27 @@ String& String::operator=(const char* other)
 	}
 }
 
+bool String::operator==(const char* other)
+{
+	String temp = other;
+	return (getBuffer() == temp.getBuffer() && getLastIndex() == temp.getLastIndex() && getCapacity() == temp.getCapacity());
+}
+
+bool String::operator==(const String& other)
+{
+	return (getBuffer() == other.getBuffer() && getLastIndex() == other.getLastIndex() && getCapacity() == other.getCapacity());
+}
+
+bool String::operator!=(const char* other)
+{
+	return !operator==(other);
+}
+
+bool String::operator!=(const String& other)
+{
+	return !operator==(other);
+}
+
 String& String::operator+(const String& other)
 {
 	if (this != nullptr)
@@ -461,4 +482,16 @@ void String::toString() const
 	}
 	
 	throw std::runtime_error("String is null pointer. toString () method can not be proceeded!");
+}
+
+std::ostream& operator<<(std::ostream& out, String str)
+{
+	out << str.getBuffer();
+	return out;
+}
+
+std::istream& operator>>(std::istream& in, String str)
+{
+	in >> str.getBuffer();
+	return in;
 }
