@@ -5,7 +5,7 @@
 #include "LibraryItems.h"
 
 /// <summary>
-/// 
+/// <c>Order</c> is an enum class which describes library items order types.
 /// </summary>
 enum class Order
 {
@@ -14,15 +14,17 @@ enum class Order
 };
 
 /// <summary>
-/// 
+/// <c>LibraryItemController</c> is a class which describes library items
+/// bussiness logic.
 /// </summary>
 class LibraryItemController
 {
 public:
 	/// <summary>
-	/// 
+	/// <c>saveLibraryItem(const LibraryItem& item)</c> stores information about a
+	/// library item in a txt file.
 	/// </summary>
-	/// <param name="item"></param>
+	/// <param name="item">LibraryItem which should be stored</param>
 	static void saveLibraryItem(const LibraryItem& item);
 
 	/// <summary>
