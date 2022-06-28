@@ -2,47 +2,27 @@
 
 void String::setBuffer(const char* buffer)
 {
-	if (this != nullptr)
+	this->buffer = new char[capacity + 1];
+	if (0 <= strlen(buffer) && strlen(buffer) <= capacity)
 	{
-		if (StringValidator::isValidBuffer(buffer))
-		{
-			this->buffer = new char[strlen(buffer) + 1];
-			strcpy_s(this->buffer, strlen(buffer) + 1, buffer);
-		}
-		else
-		{
-			throw std::invalid_argument("Invalid buffer!");
-		}
+		strcpy_s(this->buffer, strlen(buffer) + 1, buffer);
 	}
-
-	throw std::runtime_error("String is null pointer. Buffer can not be changed!");
+	else
+	{
+		throw std::invalid_argument("Invalid string!");
+	}
 }
 
 void String::setCapacity(const size_t capacity)
 {
-	if (this != nullptr)
-	{
-		this->capacity = StringValidator::isValidCapacity(capacity) ? (lastIndex % 8 == 0) ? ((lastIndex / 8) * 8) : (((lastIndex / 8) + 1) * 8) : throw std::invalid_argument("Invalid capacity!");
-	}
-
-	throw std::runtime_error("String is null pointer. Capacity can not be changed!");
-}
-
-void String::setLastIndex(const size_t lastIndex)
-{
-	if (this != nullptr)
-	{
-		this->lastIndex = (StringValidator::isValidLastIndex(lastIndex)) ? ((0 == lastIndex) ? lastIndex : (lastIndex - 1)) : throw std::invalid_argument("Invalid lastIndex!");
-	}
-
-	throw std::runtime_error("String is null pointer. LastIndex can not be changed!");
+	this->capacity = capacity;
 }
 
 void String::copy(const String& other)
 {
 	setCapacity(other.capacity);
 	setBuffer(other.buffer);
-	setLastIndex(other.lastIndex);
+	this->lastIndex = other.lastIndex;
 }
 
 void String::destroy() const
@@ -52,88 +32,52 @@ void String::destroy() const
 
 void String::resize()
 {
-	try
-	{
-		destroy();
-		setCapacity(capacity * 2);
-		buffer = new char[capacity];
-		setLastIndex(0);
-	}
-	catch (const std::invalid_argument& invalidArgumentEx)
-	{
-		throw std::invalid_argument(invalidArgumentEx.what());
-	}
-	catch (const std::runtime_error& runtimeErr)
-	{
-		throw std::runtime_error(runtimeErr.what());
-	}
-	catch (const std::exception& ex)
-	{
-		throw std::exception(ex.what());
-	}
+	destroy();
+	setCapacity(capacity * 2);
+	buffer = new char[capacity + 1];
+	lastIndex = 0;
 }
 
 String::String()
 {
 	try
-	{
-		setBuffer("\0");
+	{ 
 		setCapacity(8);
-		setLastIndex(0);
+		setBuffer("\0");
+		lastIndex = 0;
 	}
-	catch (const std::invalid_argument& invalidArgumentEx)
+	catch (const std::invalid_argument& invalidArgEx)
 	{
-		throw new std::invalid_argument(invalidArgumentEx.what());
-	}
-	catch (const std::runtime_error& runtimeErr)
-	{
-		throw new std::runtime_error(runtimeErr.what());
-	}
-	catch (const std::exception& ex)
-	{
-		throw new std::exception(ex.what());
+		destroy();
+		buffer = new char[capacity + 1];
+		buffer[0] = '\0';
+		lastIndex = 0;
+		ExceptionLogger::logException(DateTime(), "exceptions.txt", 
+			"Invalid Argument Exception", invalidArgEx.what());
 	}
 }
 
 String::String(const String& other)
 {
-	try
-	{
-		copy(other);
-	}
-	catch (const std::invalid_argument& invalidArgumentEx)
-	{
-		throw new std::invalid_argument(invalidArgumentEx.what());
-	}
-	catch (const std::runtime_error& runtimeErr)
-	{
-		throw new std::runtime_error(runtimeErr.what());
-	}
-	catch (const std::exception& ex)
-	{
-		throw new std::exception(ex.what());
-	}
+	copy(other);
 }
 
 String::String(const char* value)
 {
 	try
 	{
-		setLastIndex(strlen(value));
 		setCapacity(lastIndex);
 		setBuffer(value);
+		lastIndex = strlen(value) - 1;
 	}
-	catch (const std::invalid_argument& invalidArgumentEx)
+	catch (const std::invalid_argument& invalidArgEx)
 	{
-		throw new std::invalid_argument(invalidArgumentEx.what());
-	}
-	catch (const std::runtime_error& runtimeErr)
-	{
-		throw new std::runtime_error(runtimeErr.what());
-	}
-	catch (const std::exception& ex)
-	{
-		throw new std::exception(ex.what());
+		destroy();
+		buffer = new char[capacity + 1];
+		buffer[0] = '\0';
+		lastIndex = 0;
+		ExceptionLogger::logException(DateTime(), "exceptions.txt",
+			"Invalid Argument Exception", invalidArgEx.what());
 	}
 }
 
@@ -142,105 +86,62 @@ String::~String()
 	destroy();
 }
 
-char* String::getBuffer() const
+const char* String::getBuffer() const
 {
-	if (this != nullptr)
-	{
-		return buffer;
-	}
-
-	throw new std::runtime_error("String is null pointer. Buffer can not be readed!");
+	return buffer;
 }
 
-size_t String::getCapacity() const
+const size_t String::getCapacity() const
 {
-	if (this != nullptr)
-	{
-		return capacity;
-	}
-
-	throw new std::runtime_error("String is null pointer. Capacity can not be readed!");
+	return capacity;
 }
 
-size_t String::getLastIndex() const
+const size_t String::getLastIndex() const
 {
-	if (this != nullptr)
-	{
-		return lastIndex;
-	}
-
-	throw new std::runtime_error("String is null pointer. LastIndex can not be readed!");
+	return lastIndex;
 }
 
 String& String::operator=(const String& other)
 {
-	try
+	if (this != &other)
 	{
-		if (this != nullptr)
-		{
-			if (this != &other)
-			{
-				destroy();
-				copy(other);
-			}
+		destroy();
+		copy(other);
+	}
 
-			return *this;
-		}
-		
-		throw new std::runtime_error("String is null pointer. Operator = (const String& other) can not be applied!");
-	}
-	catch (const std::invalid_argument& invalidArgumentEx)
-	{
-		throw new std::invalid_argument(invalidArgumentEx.what());
-	}
-	catch (const std::runtime_error& runtimeErr)
-	{
-		throw new std::runtime_error(runtimeErr.what());
-	}
-	catch (const std::exception& ex)
-	{
-		throw new std::exception(ex.what());
-	}
+	return *this;
 }
 
 String& String::operator=(const char* other)
 {
 	try
 	{
-		if (this != nullptr)
-		{
-			setLastIndex(strlen(other) - 1);
-			(lastIndex % 8 == 0) ? setCapacity(lastIndex) : setCapacity(lastIndex - lastIndex % 8);
-			setBuffer(other);
+		(lastIndex % 8 == 0) ? setCapacity(lastIndex) : setCapacity(lastIndex - lastIndex % 8);
+		setBuffer(other);
+		lastIndex = strlen(other) - 1;
+	}
+	catch (const std::invalid_argument& invalidArgEx)
+	{
+		destroy();
+		buffer = new char[capacity + 1];
+		buffer[0] = '\0';
+		lastIndex = 0;
+		ExceptionLogger::logException(DateTime(), "exceptions.txt",
+			"Invalid Argument Exception", invalidArgEx.what());
+	}
 
-			return *this;
-		}
-		
-		throw new std::runtime_error("String is null pointer. Operator = (const char* otherValue) can not be applied!");
-	}
-	catch (const std::invalid_argument& invalidArgumentEx)
-	{
-		throw new std::invalid_argument(invalidArgumentEx.what());
-	}
-	catch (const std::runtime_error& runtimeErr)
-	{
-		throw new std::runtime_error(runtimeErr.what());
-	}
-	catch (const std::exception& ex)
-	{
-		throw new std::exception(ex.what());
-	}
+	return *this;
 }
 
 bool String::operator==(const char* other)
 {
 	String temp = other;
-	return (getBuffer() == temp.getBuffer() && getLastIndex() == temp.getLastIndex() && getCapacity() == temp.getCapacity());
+	return compare(other);
 }
 
 bool String::operator==(const String& other)
 {
-	return (getBuffer() == other.getBuffer() && getLastIndex() == other.getLastIndex() && getCapacity() == other.getCapacity());
+	return compare(other);
 }
 
 bool String::operator!=(const char* other)
@@ -255,236 +156,133 @@ bool String::operator!=(const String& other)
 
 String& String::operator+(const String& other)
 {
-	if (this != nullptr)
-	{
-		lastIndex += (strlen(other.buffer) + 1);
-		capacity += other.capacity;
+	String word = String(buffer);
+	destroy();
+	word += String(other);
 
-		char* tempBuffer = buffer;
-		size_t tempBufferLenght = strlen(tempBuffer) + strlen(other.buffer);
-
-		destroy();
-		buffer = new char[tempBufferLenght + 1];
-		strcpy_s(buffer, (tempBufferLenght + 1), tempBuffer);
-		strcat_s(buffer, (tempBufferLenght + 1), other.buffer);
-
-		return *this;
-	}
-	
-	throw new std::runtime_error("String is null pointer. Operator + (const String& other) can not be applied!");
+	return word;
 }
 
 String& String::operator+(const char* other)
 {
-	try
-	{
-		String otherWord = String(other);
-		return operator+(otherWord);
-	}
-	catch (const std::invalid_argument& invalidArgumentEx)
-	{
-		throw std::invalid_argument(invalidArgumentEx.what());
-	}
-	catch (const std::runtime_error&)
-	{
-		throw std::runtime_error("String is null pointer. Operator + (const char* other) can not be applied!");
-	}
-	catch (const std::exception& ex)
-	{
-		throw std::exception(ex.what());
-	}
+	String otherWord = String(other);
+	return operator+(otherWord);
 }
 
 String& String::operator+=(const String& other)
 {
-	try
-	{
-		return operator+(other);
-	}
-	catch (const std::invalid_argument& invalidArgumentEx)
-	{
-		throw std::invalid_argument(invalidArgumentEx.what());
-	}
-	catch (const std::runtime_error&)
-	{
-		throw std::runtime_error("String is null pointer. Operator += (const String& other) can not be applied!");
-	}
-	catch (const std::exception& ex)
-	{
-		throw std::exception(ex.what());
-	}
+	char* tempBuffer = buffer;
+	size_t tempBufferLenght = strlen(tempBuffer) + strlen(other.buffer);
+
+	destroy();
+	buffer = new char[tempBufferLenght + 1];
+	strcpy_s(buffer, (tempBufferLenght + 1), tempBuffer);
+	strcat_s(buffer, (tempBufferLenght + 1), other.buffer);
+
+	return *this;
 }
 
 String& String::operator+=(const char* other)
 {
-	try
-	{
-		return operator+(other);
-	}
-	catch (const std::invalid_argument& invalidArgumentEx)
-	{
-		throw std::invalid_argument(invalidArgumentEx.what());
-	}
-	catch (const std::runtime_error&)
-	{
-		throw std::runtime_error("String is null pointer. Operator += (const char* other) can not be applied!");
-	}
-	catch (const std::exception& ex)
-	{
-		throw std::exception(ex.what());
-	}
+	return operator+(other);
 }
 
-char String::operator[](const size_t index) const
+char& String::operator[](const size_t index) const
 {
-	if (this != nullptr)
+	if (0 <= index && index <= lastIndex)
 	{
-		if (0 <= index && index <= lastIndex)
-		{
-			return buffer[index];
-		}
-		else
-		{
-			throw new std::invalid_argument("Invalid index!");
-		}
+		return buffer[index];
 	}
-	
-	throw new std::runtime_error("String is null pointer. Operator [] (size_t index) can not be applied!");
+	else
+	{
+		throw new std::invalid_argument("Invalid index!");
+	}
 }
 
 const char String::operator[](const size_t index)
 {
-	try
+	if (0 <= index && index <= lastIndex)
 	{
-		return operator[](index);
+		return buffer[index];
 	}
-	catch (const std::invalid_argument& invalidArgumentEx)
+	else
 	{
-		throw std::invalid_argument(invalidArgumentEx.what());
-	}
-	catch (const std::runtime_error&)
-	{
-		throw std::runtime_error("String is null pointer. Operator [] (const size_t index) can not be applied!");
-	}
-	catch (const std::exception& ex)
-	{
-		throw std::exception(ex.what());
+		throw new std::invalid_argument("Invalid index!");
 	}
 }
 
 bool String::isEmpty() const
 {
-	if (this != nullptr)
-	{
-		return (lastIndex == 0);
-	}
-	
-	throw new std::runtime_error("String is null pointer. isEmpty () method can not be proceeded!");
+	return (lastIndex == 0);
 }
 
 bool String::compare(const String& other) const
 {
-	if (this != nullptr)
-	{
-		return (lastIndex == other.lastIndex && capacity == other.capacity && strcmp(buffer, other.buffer) == 0);
-	}
-	
-	throw new std::runtime_error("String is null pointer. compare (const String& other) method can not be proceeded!");
+	return (strcmp(buffer, other.buffer) == 0);
 }
 
 bool String::compare(const char* other) const
 {
-	try
-	{
-		String otherWord = String(other);
-		return compare(otherWord);
-	}
-	catch (const std::invalid_argument& invalidArgumentEx)
-	{
-		throw std::invalid_argument(invalidArgumentEx.what());
-	}
-	catch (const std::runtime_error&)
-	{
-		throw std::runtime_error("String is null pointer. Method compare (const char* other) can not be proceeded!");
-	}
-	catch (const std::exception& ex)
-	{
-		throw std::exception(ex.what());
-	}
+	String otherWord = String(other);
+	return compare(otherWord);
 }
 
 String& String::pushBack(const char symbol)
 {
-	if (this != nullptr)
+	if (lastIndex <= capacity)
 	{
-		if (lastIndex < capacity)
+		++lastIndex;
+		buffer[lastIndex] = symbol;
+	}
+	else
+	{
+		size_t thisCustomStringStartCapacity = capacity;
+
+		size_t thisCustomStringLastIndex = lastIndex;
+		size_t appendedStringLength = (thisCustomStringLastIndex + 1);
+
+		String tempThisCustomString = String(*this);
+
+		do
 		{
-			++lastIndex;
-			buffer[lastIndex] = symbol;
-		}
-		else
-		{
-			size_t thisCustomStringStartCapacity = capacity;
+			resize();
 
-			size_t thisCustomStringLastIndex = lastIndex;
-			size_t appendedStringLength = (thisCustomStringLastIndex + 1);
-
-			String tempThisCustomString = String(*this);
-
-			do 
+			if (thisCustomStringStartCapacity < capacity)
 			{
-				resize();
-				
-				if (thisCustomStringStartCapacity < capacity)
-				{
-					break;
-				}
-			} while (capacity < (appendedStringLength + 1));
-
-
-			for (size_t index = 0; index < thisCustomStringLastIndex; ++index)
-			{
-				buffer[index] = tempThisCustomString.buffer[index];
+				break;
 			}
+		} while (capacity < (appendedStringLength + 1));
 
-			++lastIndex;
-			buffer[thisCustomStringLastIndex] = symbol;
+
+		for (size_t index = 0; index < thisCustomStringLastIndex; ++index)
+		{
+			buffer[index] = tempThisCustomString.buffer[index];
 		}
 
-		return *this;
+		++lastIndex;
+		buffer[thisCustomStringLastIndex] = symbol;
 	}
 
-	throw new std::runtime_error("String is null pointer. pushBack (const char symbol) method can not be proceeded!");
+	return *this;
 }
 
 String& String::popBack()
 {
-	if (this != nullptr)
+	if (0 <= lastIndex)
 	{
 		--lastIndex;
 		return *this;
 	}
 	
-	throw new std::runtime_error("String is null pointer. popBack () method can not be proceeded!");
-	
+	throw new std::exception("Invalid index!");
 }
 
 void String::toString() const
 {
-	if (this != nullptr)
-	{
-		for (size_t index = 0; index <= lastIndex; ++index)
-		{
-			std::cout <<  buffer[index];
-		}
-
-		return;
-	}
-	
-	throw std::runtime_error("String is null pointer. toString () method can not be proceeded!");
+	std::cout << buffer;
 }
 
-std::ostream& operator<<(std::ostream& out, String str)
+std::ostream& operator<<(std::ostream& out, const String str)
 {
 	out << str.getBuffer();
 	return out;

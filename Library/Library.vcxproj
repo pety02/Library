@@ -152,16 +152,15 @@
     <ClCompile Include="LibraryItem.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="UserController.cpp" />
-    <ClCompile Include="UserFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Article.h" />
+    <ClInclude Include="ExceptionLogger.h" />
     <ClInclude Include="LibraryItemController.h" />
     <ClInclude Include="Dates.h" />
     <ClInclude Include="ItemValidator.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="LibraryItems.h" />
-    <ClInclude Include="StringValidator.h" />
     <ClInclude Include="UserController.h" />
     <ClInclude Include="Users.h" />
     <ClInclude Include="UserValidator.h" />

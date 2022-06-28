@@ -2,6 +2,7 @@
 #ifndef DATES_H
 #define DATES_H
 
+#include "ExceptionLogger.h"
 #include <iostream>
 #include <ctime>
 
@@ -129,6 +130,11 @@ public:
 	Date(const unsigned int year, const unsigned int month, const unsigned int day);
 
 	/// <summary>
+	/// 
+	/// </summary>
+	virtual ~Date();
+
+	/// <summary>
 	/// <c>getYear()</c> is a method in <c>Date</c> class.
 	/// </summary>
 	/// 
@@ -136,7 +142,7 @@ public:
 	/// If this date is not a null pointer, the method returns the date year. But if this date is null pointer, 
 	/// the methods throws a <exception>std::runtime_error</exception> with a custom message.
 	/// </returns>
-	unsigned int getYear() const;
+	const unsigned int getYear() const;
 
 	/// <summary>
 	/// <c>getMonth()</c> is a method in <c>Date</c> class.
@@ -146,7 +152,7 @@ public:
 	/// If this date is not a null pointer, the method returns the date month. But if this date is null pointer, 
 	/// the methods throws a <exception>std::runtime_error</exception> with a custom message.
 	/// </returns>
-	unsigned int getMonth() const;
+	const unsigned int getMonth() const;
 
 	/// <summary>
 	/// <c>getDay()</c> is a method in <c>Date</c> class.
@@ -156,7 +162,7 @@ public:
 	/// If this date is not a null pointer, the method returns the date year. But if this date is null pointer, 
 	/// the methods throws a <exception>std::runtime_error</exception> with a custom message.
 	/// </returns>
-	unsigned int getDay() const;
+	const unsigned int getDay() const;
 
 	/// <summary>
 	/// <c>operator>(const Date&amp; other)</c> is a pre-defined operator which returns wheather this <c>Date</c> object 
@@ -267,7 +273,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	virtual Date operator++(const int);	
+	virtual Date& operator++(const int);	
 	
 	/// <summary>
 	/// 
@@ -276,7 +282,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	virtual Date operator--();		
+	virtual Date& operator--();		
 	
 	/// <summary>
 	/// 
@@ -289,7 +295,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	virtual Date operator--(const int);
+	virtual Date& operator--(const int);
 	
 	/// <summary>
 	/// 
@@ -302,7 +308,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	virtual Date operator+(const int days) const;
+	virtual Date& operator+(const int days) const;
 	
 	/// <summary>
 	/// 
@@ -315,7 +321,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	virtual Date operator-(const int days) const;
+	virtual Date& operator-(const int days) const;
 	
 	/// <summary>
 	/// 
@@ -456,11 +462,7 @@ public:
 	/// <summary>
 	/// 
 	/// </summary>
-	/// 
-	/// <returns>
-	/// 
-	/// </returns>
-	unsigned int getHours() const;
+	~DateTime();
 
 	/// <summary>
 	/// 
@@ -469,7 +471,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	unsigned int getMinutes() const;
+	const unsigned int getHours() const;
 
 	/// <summary>
 	/// 
@@ -478,7 +480,16 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	unsigned int getSeconds() const;
+	const unsigned int getMinutes() const;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// 
+	/// <returns>
+	/// 
+	/// </returns>
+	const unsigned int getSeconds() const;
 
 	/// <summary>
 	/// 

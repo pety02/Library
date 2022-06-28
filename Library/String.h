@@ -2,10 +2,10 @@
 #ifndef CUSTOMSTRING_H
 #define CUSTOMSTRING_H
 
+#include "ExceptionLogger.h"
 #include <iostream>
 #include <cstring>
 #include <stdexcept>
-#include "StringValidator.h"
 
 /// <summary>
 /// String class written by me in order to be able
@@ -29,12 +29,6 @@ private:
 	/// </summary>
 	/// <param name="capacity"></param>
 	void setCapacity(const size_t capacity);
-
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="lastIndex"></param>
-	void setLastIndex(const size_t lastIndex);
 
 	/// <summary>
 	/// <c>copy</c> is a method for copying all fields of one 
@@ -94,7 +88,7 @@ public:
 	/// <returns>
 	/// Returns the value of string's buffer.
 	/// </returns>
-	char* getBuffer() const;
+	const char* getBuffer() const;
 
 	/// <summary>
 	/// <c>getCapacity</c> - is a getter for capacity string's field.
@@ -102,7 +96,7 @@ public:
 	/// <returns>
 	/// Returns the capacity of the string.
 	/// </returns>
-	size_t getCapacity() const;
+	const size_t getCapacity() const;
 
 	/// <summary>
 	/// <c>getLastIndex</c> - is a getter for the lastIndex string's field. 
@@ -110,7 +104,7 @@ public:
 	/// <returns>
 	/// Returns the last index in string's buffer value.
 	/// </returns>
-	size_t getLastIndex() const;
+	const size_t getLastIndex() const;
 
 	/// <summary>
 	/// Operator = for string. Assigns <paramref name = "other" /> string 
@@ -213,7 +207,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	char operator[](const size_t index) const; 
+	char& operator[](const size_t index) const; 
 	
 	/// <summary>
 	/// 
