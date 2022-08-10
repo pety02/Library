@@ -13,7 +13,6 @@
 class Date
 {
 private:
-	
 	/// <summary>
 	/// <value>
 	/// A date field from <c>unsigned int</c> type which stores 
@@ -49,7 +48,6 @@ private:
 	unsigned int getDaysInMonth();
 
 protected:
-	
 	/// <summary>
 	/// <c>setYear(const unsigned int year)</c> is a setter method in <c>Date</c> class.
 	/// If year (parameter value of type <c>const unsigned int</c>) is valid,
@@ -64,7 +62,7 @@ protected:
 	/// <param name="year">
 	/// takes <c>const unsigned int</c> value and treats it as date year value.
 	/// </param>
-	void setYear(const unsigned int year);
+	void setYear(const unsigned int& year);
 
 	/// <summary>
 	/// <c>setMonth(const unsigned int month)</c> is a setter method in <c>Date</c> class.
@@ -80,7 +78,7 @@ protected:
 	/// <param name="month">
 	/// takes <c>const unsigned int</c> value and treats it as date month value.
 	/// </param>
-	void setMonth(const unsigned int month);
+	void setMonth(const unsigned int& month);
 
 	/// <summary>
 	/// <c>setDay(const unsigned int year)</c> is a setter method in <c>Date</c> class.
@@ -96,10 +94,9 @@ protected:
 	/// <param name="day">
 	/// takes <c>const unsigned int</c> value and treats it as date day value.
 	/// </param>
-	void setDay(const unsigned int day);
+	void setDay(const unsigned int& day);
 
 public:
-	
 	/// <summary>
 	/// <c>Date()</c> is a default constructor, so it initialize <c>Date</c> object fields 
 	/// with default values, using the setter methods and the validation in it. If anything is wrong in 
@@ -127,12 +124,7 @@ public:
 	/// <param name="day">
 	/// takes <c>const unsigned int</c> value and treats it as day field value.
 	/// </param>
-	Date(const unsigned int year, const unsigned int month, const unsigned int day);
-
-	/// <summary>
-	/// 
-	/// </summary>
-	virtual ~Date();
+	Date(const unsigned int& year, const unsigned int& month, const unsigned int& day);
 
 	/// <summary>
 	/// <c>getYear()</c> is a method in <c>Date</c> class.
@@ -177,7 +169,7 @@ public:
 	/// <returns>
 	/// The method returns  wheather this <c>Date</c> object is larger from other <c>Date</c> object.
 	/// </returns>
-	virtual bool operator>(const Date& other) const;
+	virtual const bool operator>(const Date& other) const;
 	
 	/// <summary>
 	/// <c>operator>=(const Date&amp; other)</c> is a pre-defined operator which returns wheather this <c>Date</c> object 
@@ -192,7 +184,7 @@ public:
 	/// <returns>
 	/// The method returns wheather this <c>Date</c> object is larger from or equal to other <c>Date</c> object.
 	/// </returns>
-	virtual bool operator>=(const Date& other) const;
+	virtual const bool operator>=(const Date& other) const;
 	
 	/// <summary>
 	/// <c>operator<(const Date&amp; other)</c> is a pre-defined operator which returns wheather this <c>Date</c> object 
@@ -207,7 +199,7 @@ public:
 	/// <returns>
 	/// The method returns wheather this <c>Date</c> object is smaller from other <c>Date</c> object.
 	/// </returns>
-	virtual bool operator<(const Date& other) const;
+	virtual const bool operator<(const Date& other) const;
 	
 	/// <summary>
 	/// <c>operator<=(const Date&amp; other)</c> is a pre-defined operator which returns  wheather this <c>Date</c> object 
@@ -223,7 +215,7 @@ public:
 	/// <returns>
 	/// The method returns  wheather this <c>Date</c> object is smaller from or equal to other <c>Date</c> object.
 	/// </returns>
-	virtual bool operator<=(const Date& other) const;
+	virtual const bool operator<=(const Date& other) const;
 	
 	/// <summary>
 	/// <c>operator==(const Date&amp; other)</c> is a pre-defined operator which returns wheather this <c>Date</c> object is
@@ -237,7 +229,7 @@ public:
 	/// <returns>
 	/// The method returns wheather this <c>Date</c> object is equal to other <c>Date</c> object.
 	/// </returns>
-	virtual bool operator==(const Date& other) const;
+	virtual const bool operator==(const Date& other) const;
 	
 	/// <summary>
 	/// <c>operator!=(const Date&amp; other)</c> is a pre-defined operator which returns wheather this <c>Date</c> object is
@@ -251,7 +243,7 @@ public:
 	/// <returns>
 	/// The method returns wheather this <c>Date</c> object is different from other <c>Date</c> object.
 	/// </returns>
-	virtual bool operator!=(const Date& other) const;
+	virtual const bool operator!=(const Date& other) const;
 
 	/// <summary>
 	/// 
@@ -308,7 +300,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	virtual Date& operator+(const int days) const;
+	virtual const Date& operator+(const int& days) const;
 	
 	/// <summary>
 	/// 
@@ -321,7 +313,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	virtual Date& operator-(const int days) const;
+	virtual const Date& operator-(const int& days) const;
 	
 	/// <summary>
 	/// 
@@ -334,7 +326,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	virtual Date& operator+=(const int days);
+	virtual Date& operator+=(const int& days);
 	
 	/// <summary>
 	/// 
@@ -347,7 +339,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	virtual Date& operator-=(const int days);
+	virtual Date& operator-=(const int& days);
 	
 	/// <summary>
 	/// 
@@ -392,7 +384,7 @@ private:
 	/// <param name="hours">
 	/// 
 	/// </param>
-	void setHours(const unsigned int hours);
+	void setHours(const unsigned int& hours);
 	
 	/// <summary>
 	/// 
@@ -401,7 +393,7 @@ private:
 	/// <param name="minutes">
 	/// 
 	/// </param>
-	void setMinutes(const unsigned int minutes);
+	void setMinutes(const unsigned int& minutes);
 	
 	/// <summary>
 	/// 
@@ -410,7 +402,7 @@ private:
 	/// <param name="seconds">
 	/// 
 	/// </param>
-	void setSeconds(const unsigned int seconds);
+	void setSeconds(const unsigned int& seconds);
 
 public:
 
@@ -432,7 +424,7 @@ public:
 	/// <param name="day">
 	/// 
 	/// </param>
-	DateTime(const unsigned int year, const unsigned int month, const unsigned int day);
+	DateTime(const unsigned int& year, const unsigned int& month, const unsigned int& day);
 	
 	/// <summary>
 	/// 
@@ -456,13 +448,8 @@ public:
 	/// <param name="seconds">
 	/// 
 	/// </param>
-	DateTime(const unsigned int year, const unsigned int month, const unsigned int day, 
-		const unsigned int hours, const unsigned int minutes, const unsigned int seconds);
-
-	/// <summary>
-	/// 
-	/// </summary>
-	~DateTime();
+	DateTime(const unsigned int& year, const unsigned int& month, const unsigned int& day, 
+		const unsigned int& hours, const unsigned int& minutes, const unsigned int& seconds);
 
 	/// <summary>
 	/// 
@@ -502,7 +489,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	bool operator>(const DateTime& other) const;
+	const bool operator>(const DateTime& other) const;
 
 	/// <summary>
 	/// 
@@ -515,7 +502,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	bool operator>=(const DateTime& other) const;
+	const bool operator>=(const DateTime& other) const;
 
 	/// <summary>
 	/// 
@@ -528,7 +515,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	bool operator<(const DateTime& other) const;
+	const bool operator<(const DateTime& other) const;
 
 	/// <summary>
 	/// 
@@ -541,7 +528,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	bool operator<=(const DateTime& other) const;
+	const bool operator<=(const DateTime& other) const;
 
 	/// <summary>
 	/// 
@@ -554,7 +541,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	bool operator==(const DateTime& other) const;
+	const bool operator==(const DateTime& other) const;
 
 	/// <summary>
 	/// 
@@ -567,7 +554,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	bool operator!=(const DateTime& other) const;
+	const bool operator!=(const DateTime& other) const;
 
 	/// <summary>
 	/// 

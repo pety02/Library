@@ -158,7 +158,7 @@
     <ClInclude Include="ExceptionLogger.h" />
     <ClInclude Include="LibraryItemController.h" />
     <ClInclude Include="Dates.h" />
-    <ClInclude Include="ItemValidator.h" />
+    <ClInclude Include="LibraryItemValidator.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="LibraryItems.h" />
     <ClInclude Include="UserController.h" />

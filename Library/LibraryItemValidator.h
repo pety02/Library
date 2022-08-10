@@ -1,21 +1,27 @@
 #pragma once
-#ifndef ITEMVALIDATOR_H
-#define ITEMVALIDATOR_H
+#ifndef LIBRARYITEMVALIDATOR_H
+#define LYBRARYITEMVALIDATOR_H
 
+#include <cstring>
 #include "LibraryItems.h"
 
 /// <summary>
 /// 
 /// </summary>
-class ItemValidator
+class LibraryItemValidator
 {
 private:
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="word"></param>
+	/// <returns></returns>
 	static bool containsOnlyLetters(const String word)
 	{
 		bool areOnlyLetters = false;
-		char* tempWord = word.getBuffer();
+		const char* tempWord = word.getBuffer();
 
-		while (*tempWord != '\0')
+		while (*word.getBuffer() != '\0')
 		{
 			if(('a' <= *tempWord && *tempWord <= 'z') || ('A' <= *tempWord && *tempWord <= 'Z'))
 			{ 
@@ -27,6 +33,18 @@ private:
 
 		return areOnlyLetters;
 	}
+
+	static size_t sumIssnChars(char ch, int& lastDigit, int& digitPosition)
+	{
+		if (!isdigit(ch))
+		{
+			return 0;
+		}
+
+		lastDigit = ch - '0';  
+		return digitPosition-- * lastDigit;
+	}
+
 public:
 	/// <summary>
 	/// 
@@ -36,7 +54,7 @@ public:
 	static bool isValidTilte(const String title)
 	{
 		bool isValidHeading = true;
-		if ((!title.isEmpty() && (0 <= title.getLastIndex() && title.getLastIndex() <= 30)
+		if ((!title.isEmpty() && (0 <= title.getLastIndex() && title.getLastIndex() <= 29)
 			&& ('A' <= title[0] && title[0] <= 'Z')) || (title.isEmpty()))
 		{
 			for (size_t index = 1; index <= title.getLastIndex(); ++index)
@@ -64,7 +82,7 @@ public:
 	static bool isValidPublisher(const String publisher)
 	{
 		bool isValidPublisherHouse = true;
-		if ((!publisher.isEmpty() && (0 <= publisher.getCapacity() && publisher.getCapacity() <= 30)
+		if ((!publisher.isEmpty() && (0 <= publisher.getLastIndex() && publisher.getLastIndex() <= 29)
 			&& ('A' <= publisher[0] && publisher[0] <= 'Z')) || (publisher.isEmpty()))
 		{
 			for (size_t index = 1; index <= publisher.getLastIndex(); ++index)
@@ -101,7 +119,7 @@ public:
 	/// <returns></returns>
 	static bool isValidDescription(const String description)
 	{
-		return ((!description.isEmpty() && (0 <= description.getCapacity() && description.getCapacity() <= 300)) || (description.isEmpty()));
+		return ((!description.isEmpty() && (0 <= description.getLastIndex() && description.getLastIndex() <= 299)) || (description.isEmpty()));
 	}
 	
 	/// <summary>
@@ -166,7 +184,7 @@ public:
 	static bool isValidAuthor(const String author)
 	{
 		bool isValidAuthorName = true;
-		if ((!author.isEmpty() && (1 <= author.getCapacity() && author.getCapacity() <= 30)
+		if ((!author.isEmpty() && (1 <= author.getLastIndex() && author.getLastIndex() <= 29)
 			&& ('A' <= author[0] && author[0] <= 'Z')) || (author.isEmpty()))
 		{
 			for (size_t index = 1; index <= author.getLastIndex(); ++index)
@@ -193,7 +211,7 @@ public:
 	/// <returns></returns>
 	static bool isValidKeywordsCount(const size_t keywordsCount)
 	{
-		return (0 <= keywordsCount);
+		return (keywordsCount <= 15);
 	}
 	
 	/// <summary>
@@ -223,7 +241,26 @@ public:
 	/// <returns></returns>
 	static bool isValidIssn(const String issn)
 	{
-		return true;
+		int lastDigit = 0;
+		int digitPosition = 8;
+		size_t sum = 0;
+		for (size_t i = 0; i <= issn.getLastIndex(); i++)
+		{
+			sum += sumIssnChars(issn.getBuffer()[i], lastDigit, digitPosition);
+		}
+		
+		if (digitPosition != 0)
+		{
+			throw new std::invalid_argument("Incorrect number of digits in ISSN");
+		}
+		
+		sum -= lastDigit;
+		int mod = sum % 11;
+		int checkDigit = 0;
+		if (mod != 0)
+			checkDigit = 11 - mod;
+
+		return (checkDigit == lastDigit);
 	}
 	
 	/// <summary>
@@ -243,7 +280,7 @@ public:
 	/// <returns></returns>
 	static bool isValidNumber(const unsigned int number)
 	{
-		return (0 <= number);
+		return (number <= 30);
 	}
 	
 	/// <summary>
@@ -253,7 +290,7 @@ public:
 	/// <returns></returns>
 	static bool isValidArticlesCount(const size_t articlesCount)
 	{
-		return (0 <= articlesCount);
+		return (articlesCount <= 20);
 	}
 	
 	/// <summary>

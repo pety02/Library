@@ -1,16 +1,16 @@
 #include "Dates.h"
 
-void DateTime::setHours(unsigned int hours)
+void DateTime::setHours(const unsigned int& hours)
 {
 	this->hours = (0 <= hours && hours <= 23) ? hours : throw std::invalid_argument("Invalid hours!");
 }
 
-void DateTime::setMinutes(unsigned int minutes)
+void DateTime::setMinutes(const unsigned int& minutes)
 {
 	this->minutes = (0 <= minutes && minutes <= 59) ? minutes : throw std::invalid_argument("Invalid minutes!");
 }
 
-void DateTime::setSeconds(unsigned int seconds)
+void DateTime::setSeconds(const unsigned int& seconds)
 {
 	this->seconds = (0 <= seconds && seconds <= 59) ? seconds : throw std::invalid_argument("Invalid seconds!");
 }
@@ -53,11 +53,30 @@ DateTime::DateTime() : Date()
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{
-		ExceptionLogger::logException("exceptions.txt", "Invalid Argument Exception", invalidArgumentEx.what());
+		ExceptionLogger::logException("exceptions.txt",
+			"Invalid Argument Exception", invalidArgumentEx.what());
+	}
+	catch (const std::exception& ex)
+	{
+		ExceptionLogger::logException(DateTime(), "exceptions.txt",
+			"Exception", ex.what());
+	}
+	catch (...)
+	{
+		try
+		{
+			std::exception_ptr eptr = std::current_exception();
+			std::rethrow_exception(eptr);
+		}
+		catch (const std::exception& ex)
+		{
+			ExceptionLogger::logException(DateTime(), "exceptions.txt",
+				"Unknown Exception", ex.what());
+		}
 	}
 }
 
-DateTime::DateTime(unsigned int year, unsigned int month, unsigned int day) : Date(year, month, day)
+DateTime::DateTime(const unsigned int& year, const unsigned int& month, const unsigned int& day) : Date(year, month, day)
 {
 	try
 	{
@@ -67,12 +86,31 @@ DateTime::DateTime(unsigned int year, unsigned int month, unsigned int day) : Da
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{
-		ExceptionLogger::logException("exceptions.txt", "Invalid Argument Exception", invalidArgumentEx.what());
+		ExceptionLogger::logException("exceptions.txt",
+			"Invalid Argument Exception", invalidArgumentEx.what());
+	}
+	catch (const std::exception& ex)
+	{
+		ExceptionLogger::logException(DateTime(), "exceptions.txt",
+			"Exception", ex.what());
+	}
+	catch (...)
+	{
+		try
+		{
+			std::exception_ptr eptr = std::current_exception();
+			std::rethrow_exception(eptr);
+		}
+		catch (const std::exception& ex)
+		{
+			ExceptionLogger::logException(DateTime(), "exceptions.txt",
+				"Unknown Exception", ex.what());
+		}
 	}
 }
 
-DateTime::DateTime(unsigned int year, unsigned int month, unsigned int day,
-	unsigned int hours, unsigned int minutes, unsigned int seconds) : Date(year, month, day)
+DateTime::DateTime(const unsigned int& year, const unsigned int& month, const unsigned int& day,
+	const unsigned int& hours, const unsigned int& minutes, const unsigned int& seconds) : Date(year, month, day)
 {
 	try
 	{
@@ -82,13 +120,27 @@ DateTime::DateTime(unsigned int year, unsigned int month, unsigned int day,
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{
-		ExceptionLogger::logException("exceptions.txt", "Invalid Argument Exception", invalidArgumentEx.what());
+		ExceptionLogger::logException("exceptions.txt",
+			"Invalid Argument Exception", invalidArgumentEx.what());
 	}
-}
-
-DateTime::~DateTime()
-{
-
+	catch (const std::exception& ex)
+	{
+		ExceptionLogger::logException(DateTime(), "exceptions.txt",
+			"Exception", ex.what());
+	}
+	catch (...)
+	{
+		try
+		{
+			std::exception_ptr eptr = std::current_exception();
+			std::rethrow_exception(eptr);
+		}
+		catch (const std::exception& ex)
+		{
+			ExceptionLogger::logException(DateTime(), "exceptions.txt",
+				"Unknown Exception", ex.what());
+		}
+	}
 }
 
 const unsigned int DateTime::getHours() const
@@ -106,29 +158,22 @@ const unsigned int DateTime::getSeconds() const
 	return seconds;
 }
 
-bool DateTime::operator>(const DateTime& other) const
+const bool DateTime::operator>(const DateTime& other) const
 {
-	try
+	if ((getYear() > other.getYear())
+		|| (getYear() == other.getYear() && getMonth() > other.getMonth())
+		|| (getMonth() == other.getMonth() && getDay() > other.getDay())
+		|| (getDay() == other.getDay() && getHours() > other.getHours())
+		|| (getHours() == other.getHours() && getMinutes() > other.getMinutes())
+		|| (getMinutes() == other.getMinutes() && getSeconds() > other.getSeconds()))
 	{
-		if ((getYear() > other.getYear())
-			|| (getYear() == other.getYear() && getMonth() > other.getMonth())
-			|| (getMonth() == other.getMonth() && getDay() > other.getDay())
-			|| (getDay() == other.getDay() && getHours() > other.getHours())
-			|| (getHours() == other.getHours() && getMinutes() > other.getMinutes())
-			|| (getMinutes() == other.getMinutes() && getSeconds() > other.getSeconds()))
-		{
-			return true;
-		}
+		return true;
+	}
 
-		return false;
-	}
-	catch (const std::invalid_argument& invalidArgumentEx)
-	{
-		ExceptionLogger::logException("exceptions.txt", "Invalid Argument Exception", invalidArgumentEx.what());
-	}
+	return false;
 }
 
-bool DateTime::operator>=(const DateTime& other) const
+const bool DateTime::operator>=(const DateTime& other) const
 {
 	if (*this == other || *this > other)
 	{
@@ -138,17 +183,17 @@ bool DateTime::operator>=(const DateTime& other) const
 	return false;
 }
 
-bool DateTime::operator<(const DateTime& other) const
+const bool DateTime::operator<(const DateTime& other) const
 {
 	return !operator>=(other);
 }
 
-bool DateTime::operator<=(const DateTime& other) const
+const bool DateTime::operator<=(const DateTime& other) const
 {
 	return !operator>(other);
 }
 
-bool DateTime::operator==(const DateTime& other) const
+const bool DateTime::operator==(const DateTime& other) const
 {
 	if (getYear() == other.getYear()
 		&& getMonth() == other.getMonth()
@@ -163,7 +208,7 @@ bool DateTime::operator==(const DateTime& other) const
 	return false;
 }
 
-bool DateTime::operator!=(const DateTime& other) const
+const bool DateTime::operator!=(const DateTime& other) const
 {
 	return !operator==(other);
 }

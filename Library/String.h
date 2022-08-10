@@ -17,18 +17,19 @@ private:
 	char* buffer;
 	size_t capacity;
 	size_t lastIndex;
-	
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="buffer"></param>
-	void setBuffer(const char* buffer);
 
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <param name="capacity"></param>
-	void setCapacity(const size_t capacity);
+	void setCapacity(const size_t& capacity);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="buffer"></param>
+	/// <param name="lastIndex"></param>
+	void setBufferAndLastIndex(const char* buffer, const size_t& lastIndex);
 
 	/// <summary>
 	/// <c>copy</c> is a method for copying all fields of one 
@@ -50,7 +51,6 @@ private:
 	void resize();
 
 public:
-
 	/// <summary>
 	/// Default constructor for string. Constructs default object 
 	/// of class String, settings default values for its fields.
@@ -65,6 +65,34 @@ public:
 	/// "other" - string which fields need to be copied. Pre-created string object.
 	/// </param>
 	String(const String& other); 
+
+	/// <summary>
+	/// Operator = for string. Assigns <paramref name = "other" /> string 
+	/// to "this" string.
+	/// </summary>
+	/// <param name="other">
+	/// "other" -  string which fields need to be assigned to other string's 
+	/// fields. Pre-created string object.
+	/// </param>
+	/// <exception cref="exception_ptr">
+	/// Thrown when "this" string object is equal to "other" string object.
+	/// </exception>
+	/// <returns>
+	/// Returns reference to the modified string.
+	/// </returns>
+	String& operator=(const String& other);
+
+	/// <summary>
+	/// Operator = for string. Assigns an existing string to another string.
+	/// </summary>
+	/// <param name="otherValue">
+	/// "otherValue" - const char array from which the operator creates brand
+	/// new string object.
+	/// </param>
+	/// <returns>
+	/// Returns reference to the modified string.
+	/// </returns>
+	String& operator=(const char* other);
 	
 	/// <summary>
 	/// Constructor with a parameter. Constructs a string as setting a parameter's 
@@ -105,34 +133,6 @@ public:
 	/// Returns the last index in string's buffer value.
 	/// </returns>
 	const size_t getLastIndex() const;
-
-	/// <summary>
-	/// Operator = for string. Assigns <paramref name = "other" /> string 
-	/// to "this" string.
-	/// </summary>
-	/// <param name="other">
-	/// "other" -  string which fields need to be assigned to other string's 
-	/// fields. Pre-created string object.
-	/// </param>
-	/// <exception cref="exception_ptr">
-	/// Thrown when "this" string object is equal to "other" string object.
-	/// </exception>
-	/// <returns>
-	/// Returns reference to the modified string.
-	/// </returns>
-	String& operator=(const String& other); 
-
-	/// <summary>
-	/// Operator = for string. Assigns an existing string to another string.
-	/// </summary>
-	/// <param name="otherValue">
-	/// "otherValue" - const char array from which the operator creates brand
-	/// new string object.
-	/// </param>
-	/// <returns>
-	/// Returns reference to the modified string.
-	/// </returns>
-	String& operator=(const char* other);
 
 	/// <summary>
 	/// 
@@ -207,7 +207,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	char& operator[](const size_t index) const; 
+	char& operator[](const size_t& index) const; 
 	
 	/// <summary>
 	/// 
@@ -221,7 +221,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	const char operator[](const size_t index); 
+	const char operator[](const size_t& index); 
 
 	/// <summary>
 	/// 
@@ -229,7 +229,7 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	bool isEmpty() const; 
+	const bool isEmpty() const; 
 	
 	/// <summary>
 	/// 
@@ -240,14 +240,14 @@ public:
 	/// <returns>
 	/// 
 	/// </returns>
-	bool compare(const String& other) const; 
+	const bool compare(const String& other) const; 
 
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <param name="other"></param>
 	/// <returns></returns>
-	bool compare(const char* other) const;
+	const bool compare(const char* other) const;
 	
 	/// <summary>
 	/// 
@@ -258,7 +258,7 @@ public:
 	/// <returns>
 	/// Returns reference to the modified string.
 	/// </returns>
-	String& pushBack(const char symbol); 
+	String& pushBack(const char& symbol); 
 	
 	/// <summary>
 	/// 
@@ -283,23 +283,14 @@ public:
 	/// 
 	/// </param>
 	/// <returns></returns>
-	friend String append(const String& firstString, const String& secondString)
-	{
-		char* s = new char[strlen(firstString.getBuffer()) + strlen(secondString.getBuffer()) + 1];
-		strcpy_s(s, strlen(firstString.getBuffer()) + strlen(secondString.getBuffer()) + 1, firstString.getBuffer());
-		strcat_s(s, strlen(firstString.getBuffer()) + strlen(secondString.getBuffer()) + 1, secondString.getBuffer());
-
-		String cs = String(s);
-
-		return cs;
-	}
+	friend String& append(const String& firstString, const String& secondString);
 
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <param name="out"></param>
 	/// <returns></returns>
-	friend std::ostream& operator<<(std::ostream& out, const String str);
+	friend std::ostream& operator<<(std::ostream& out, const String& str);
 
 	/// <summary>
 	/// 

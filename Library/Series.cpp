@@ -1,34 +1,104 @@
-#include "ItemValidator.h"
+#include "LibraryItemValidator.h"
 
-Series::Series()
+void Series::setId()
+{
+	id = (unsigned int)this + 's';
+}
+
+void Series::setIssn(const String& issn)
+{
+	this->issn = (LibraryItemValidator::isValidIssn(issn)) ? issn : throw std::invalid_argument("Invalid issn!");
+}
+
+void Series::setReleaseMonth(const unsigned int& releaseMonth)
+{
+	this->releaseMonth = (LibraryItemValidator::isValidReleaseMonth(releaseMonth)) ? releaseMonth : throw std::invalid_argument("Invalid release month!");
+}
+
+void Series::setNumber(const unsigned int& number)
+{
+	this->number = (LibraryItemValidator::isValidNumber(number)) ? number : throw std::invalid_argument("Invalid number!");
+}
+
+void Series::setArticlesAndArticlesCount(const Article* articles, const size_t& articlesCount)
+{
+	if (LibraryItemValidator::isValidArticlesCount(articlesCount))
+	{
+		this->articlesCount = articlesCount;
+		if (LibraryItemValidator::isValidContent(articles, articlesCount))
+		{
+			this->articles = new Article[articlesCount];
+			for (size_t index = 0; index < articlesCount; index++)
+			{
+				this->articles[index] = articles[index];
+			}
+		}
+		else
+		{
+			throw std::invalid_argument("Invalid articles!");
+		}
+	}
+	else
+	{
+		throw std::invalid_argument("Invalid articles count!");
+	}
+}
+
+void Series::copy(const Series& other)
+{
+	setId();
+	setTitle(other.getTitle());
+	setPublisher(other.getPublisher());
+	setGenre(other.getGenre());
+	setDecription(other.getDecription());
+	setReleaseYear(other.getReleaseYear());
+	setRating(other.getRating());
+	setIssn(other.getIssn());
+	setReleaseMonth(other.getReleaseMonth());
+	setNumber(other.getNumber());
+	setArticlesAndArticlesCount(other.getArticles(), other.getArticlesCount());
+}
+
+void Series::destroy()
+{
+	delete[] articles;
+}
+
+
+Series::Series() : LibraryItem()
 {
 	try
 	{
 		setId();
-		setTitle(String());
-		setPublisher(String());
-		setGenre(Genre::UNKNOWN);
-		setDecription(String());
-		setReleaseYear(1900);
-		setRating(0.0);
 		setIssn(String());
 		setReleaseMonth(1);
 		setNumber(0);
-		setArticlesCount(0);
-		
-		content = new Article[0];
+		setArticlesAndArticlesCount(new Article[0], getArticlesCount());
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{
-		throw new std::invalid_argument(invalidArgumentEx.what());
-	}
-	catch (const std::runtime_error& runtimeErr)
-	{
-		throw new std::runtime_error(runtimeErr.what());
+		destroy();
+		ExceptionLogger::logException(DateTime(), "exceptions.txt", 
+			"Invalid argument Exception", invalidArgumentEx.what());
 	}
 	catch (const std::exception& ex)
 	{
-		throw new std::exception(ex.what());
+		destroy();
+		ExceptionLogger::logException(DateTime(), "exceptions.txt", 
+			"Exception", ex.what());
+	}
+	catch (...)
+	{
+		try
+		{
+			std::exception_ptr eptr = std::current_exception();
+			std::rethrow_exception(eptr);
+		}
+		catch (const std::exception& ex)
+		{
+			ExceptionLogger::logException(DateTime(), "exceptions.txt",
+				"Unknown Exception", ex.what());
+		}
 	}
 }
 
@@ -40,123 +110,29 @@ Series::Series(const Series& other)
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{
-		throw new std::invalid_argument(invalidArgumentEx.what());
-	}
-	catch (const std::runtime_error& runtimeErr)
-	{
-		throw new std::runtime_error(runtimeErr.what());
+		destroy();
+		ExceptionLogger::logException(DateTime(), "exceptions.txt",
+			"Invalid argument Exception", invalidArgumentEx.what());
 	}
 	catch (const std::exception& ex)
 	{
-		throw new std::exception(ex.what());
+		destroy();
+		ExceptionLogger::logException(DateTime(), "exceptions.txt", 
+			"Exception", ex.what());
 	}
-}
-
-Series::Series(const String title, const String publisher, const Genre genre, const String description,
-	const unsigned int releaseYear, const double rating, const String issn, 
-	const unsigned int releaseMonth, const unsigned int number, const Article* content, 
-	const size_t articlesCount)
-{
-	try
+	catch (...)
 	{
-		setId();
-		setTitle(title);
-		setPublisher(publisher);
-		setGenre(genre);
-		setDecription(description);
-		setReleaseYear(releaseYear);
-		setRating(rating);
-		setIssn(issn);
-		setReleaseMonth(releaseMonth);
-		setNumber(number);
-		setContent(content, articlesCount);
-	}
-	catch (const std::invalid_argument& invalidArgumentEx)
-	{
-		throw new std::invalid_argument(invalidArgumentEx.what());
-	}
-	catch (const std::runtime_error& runtimeErr)
-	{
-		throw new std::runtime_error(runtimeErr.what());
-	}
-	catch (const std::exception& ex)
-	{
-		throw new std::exception(ex.what());
-	}
-}
-
-void Series::setId()
-{
-	if (this != nullptr)
-	{
-		id = (unsigned int)this + 's';
-		return;
-	}
-
-	throw std::runtime_error("The Series is null pointer. Id can not be set!");
-}
-
-void Series::setIssn(const String issn)
-{
-	if (this != nullptr)
-	{
-		this->issn = (ItemValidator::isValidIssn(issn)) ? issn : throw std::invalid_argument("Invalid issn!");
-		return;
-	}
-
-	throw std::runtime_error("The Series is null pointer. Issn can not be changed!");
-}
-
-void Series::setReleaseMonth(const unsigned int releaseMonth)
-{
-	if (this != nullptr)
-	{
-		this->releaseMonth = (ItemValidator::isValidReleaseMonth(releaseMonth)) ? releaseMonth : throw std::invalid_argument("Invalid release month!");
-		return;
-	}
-
-	throw std::runtime_error("The Series is null pointer. ReleaseMonth can not be changed!");
-}
-
-void Series::setNumber(const unsigned int number)
-{
-	if (this != nullptr)
-	{
-		this->number = (ItemValidator::isValidNumber(number)) ? number : throw std::invalid_argument("Invalid number!");
-		return;
-	}
-
-	throw std::runtime_error("The Series is null pointer. Number can not be changed!");
-}
-
-void Series::setContent(const Article* content, const size_t articlesCount)
-{
-	if (this != nullptr)
-	{
-		if (ItemValidator::isValidContent(content, articlesCount))
+		try
 		{
-			for (size_t index = 0; index < articlesCount; index++)
-			{
-				this->content[index] = content[index];
-			}
-			return;
+			std::exception_ptr eptr = std::current_exception();
+			std::rethrow_exception(eptr);
 		}
-
-		throw std::invalid_argument("Invalid content!");
+		catch (const std::exception& ex)
+		{
+			ExceptionLogger::logException(DateTime(), "exceptions.txt",
+				"Unknown Exception", ex.what());
+		}
 	}
-
-	throw std::runtime_error("The Series is null pointer. Content can not be changed!");
-}
-
-void Series::setArticlesCount(const size_t keywordsCount)
-{
-	if (this != nullptr)
-	{
-		articlesCount = (ItemValidator::isValidArticlesCount(articlesCount)) ? articlesCount : throw std::invalid_argument("Invalid articles count!");
-		return;
-	}
-
-	throw std::runtime_error("The Series is null pointer. ArticlesCount can not be changed!");
 }
 
 Series& Series::operator=(const Series& other)
@@ -173,42 +149,70 @@ Series& Series::operator=(const Series& other)
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{
-		throw new std::invalid_argument(invalidArgumentEx.what());
-	}
-	catch (const std::runtime_error& runtimeErr)
-	{
-		throw new std::runtime_error(runtimeErr.what());
+		destroy();
+		ExceptionLogger::logException(DateTime(), "exceptions.txt", 
+			"Invalid argument Exception", invalidArgumentEx.what());
 	}
 	catch (const std::exception& ex)
 	{
-		throw new std::exception(ex.what());
+		destroy();
+		ExceptionLogger::logException(DateTime(), "exceptions.txt", 
+			"Exception", ex.what());
 	}
-}
-
-void Series::copy(const Series& other)
-{
-	setId();
-	setTitle(other.getTitle());
-	setPublisher(other.getPublisher());
-	setGenre(other.getGenre());
-	setDecription(other.getDecription());
-	setReleaseYear(other.getReleaseYear());
-	setRating(other.getRating());
-	setIssn(other.getIssn());
-	setReleaseMonth(other.getReleaseMonth());
-	setNumber(other.getNumber());
-	setArticlesCount(other.getArticlesCount());
-	
-	content = new Article[articlesCount];
-	for (size_t index = 0; index < articlesCount; ++index)
+	catch (...)
 	{
-		content[index] = other.content[index];
+		try
+		{
+			std::exception_ptr eptr = std::current_exception();
+			std::rethrow_exception(eptr);
+		}
+		catch (const std::exception& ex)
+		{
+			ExceptionLogger::logException(DateTime(), "exceptions.txt",
+				"Unknown Exception", ex.what());
+		}
 	}
 }
 
-void Series::destroy()
+Series::Series(const String& title, const String& publisher, const Genre& genre, const String& description,
+	const unsigned int& releaseYear, const double& rating, const String& issn,
+	const unsigned int& releaseMonth, const unsigned int& number, const Article* content,
+	const size_t& articlesCount) : LibraryItem(title, publisher, genre, description, releaseYear, rating)
 {
-	delete[] content;
+	try
+	{
+		setId();
+		setIssn(issn);
+		setReleaseMonth(releaseMonth);
+		setNumber(number);
+		setArticlesAndArticlesCount(content, articlesCount);
+	}
+	catch (const std::invalid_argument& invalidArgumentEx)
+	{
+		destroy();
+		ExceptionLogger::logException(DateTime(), "exceptions.txt", 
+			"Invalid argument Exception", invalidArgumentEx.what());
+	}
+	catch (const std::exception& ex)
+	{
+		destroy();
+		ExceptionLogger::logException(DateTime(), "exceptions.txt", 
+			"Exception", ex.what());
+	}
+	catch (...)
+	{
+		destroy();
+		try
+		{
+			std::exception_ptr eptr = std::current_exception();
+			std::rethrow_exception(eptr);
+		}
+		catch (const std::exception& ex)
+		{
+			ExceptionLogger::logException(DateTime(), "exceptions.txt",
+				"Unknown Exception", ex.what());
+		}
+	}
 }
 
 Series::~Series()
@@ -216,62 +220,32 @@ Series::~Series()
 	destroy();
 }
 
-unsigned int Series::getId() const
+const unsigned int Series::getId() const
 {
-	if (this != nullptr)
-	{
-		return id;
-	}
-	
-	throw std::runtime_error("The Series is null pointer. Id can not be readed!");
+	return id;
 }
 
-String Series::getIssn() const
+const String Series::getIssn() const
 {
-	if (this != nullptr)
-	{
-		return issn;
-	}
-	
-	throw std::runtime_error("The Series is null pointer. Issn can not be readed!");
+	return issn;
 }
 
-unsigned int Series::getReleaseMonth() const
+const unsigned int Series::getReleaseMonth() const
 {
-	if (this != nullptr)
-	{
-		return releaseMonth;
-	}
-	
-	throw std::runtime_error("The Series is null pointer. ReleaseMonth can not be readed!");
+	return releaseMonth;
 }
 
-unsigned int Series::getNumber() const
+const unsigned int Series::getNumber() const
 {
-	if (this != nullptr)
-	{
-		return number;
-	}
-	
-	throw std::runtime_error("The Series is null pointer. Number can not be readed!");
+	return number;
 }
 
-Article* Series::getContent() const
+const Article* Series::getArticles() const
 {
-	if (this != nullptr)
-	{
-		return content;
-	}
-	
-	throw std::runtime_error("The Series is null pointer. Content can not be readed!");
+	return articles;
 }
 
-size_t Series::getArticlesCount() const
+const size_t Series::getArticlesCount() const
 {
-	if (this != nullptr)
-	{
-		return articlesCount;
-	}
-	
-	throw std::runtime_error("The Series is null pointer. ArticlesCount can not be readed!");
+	return articlesCount;
 }

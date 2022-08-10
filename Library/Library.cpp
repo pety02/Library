@@ -4,7 +4,6 @@
 #include<cstring>
 #include <stdexcept>
 #include <fstream>
-#include "ItemFactory.h"
 #include "Dates.h"
 #include "Users.h"
 #include "UserController.h"

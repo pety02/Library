@@ -1,11 +1,12 @@
 #include "String.h"
 
-void String::setBuffer(const char* buffer)
+void String::setBufferAndLastIndex(const char* buffer, const size_t& lastIndex)
 {
 	this->buffer = new char[capacity + 1];
 	if (0 <= strlen(buffer) && strlen(buffer) <= capacity)
 	{
 		strcpy_s(this->buffer, strlen(buffer) + 1, buffer);
+		this->lastIndex = strlen(this->buffer) - 1;
 	}
 	else
 	{
@@ -13,7 +14,7 @@ void String::setBuffer(const char* buffer)
 	}
 }
 
-void String::setCapacity(const size_t capacity)
+void String::setCapacity(const size_t& capacity)
 {
 	this->capacity = capacity;
 }
@@ -21,8 +22,7 @@ void String::setCapacity(const size_t capacity)
 void String::copy(const String& other)
 {
 	setCapacity(other.capacity);
-	setBuffer(other.buffer);
-	this->lastIndex = other.lastIndex;
+	setBufferAndLastIndex(other.buffer, other.lastIndex);
 }
 
 void String::destroy() const
@@ -43,17 +43,33 @@ String::String()
 	try
 	{ 
 		setCapacity(8);
-		setBuffer("\0");
-		lastIndex = 0;
+		setBufferAndLastIndex("\0", 0);
 	}
 	catch (const std::invalid_argument& invalidArgEx)
 	{
 		destroy();
-		buffer = new char[capacity + 1];
-		buffer[0] = '\0';
-		lastIndex = 0;
 		ExceptionLogger::logException(DateTime(), "exceptions.txt", 
 			"Invalid Argument Exception", invalidArgEx.what());
+	}
+	catch (const std::exception& ex)
+	{
+		destroy();
+		ExceptionLogger::logException(DateTime(), "exceptions.txt",
+			"Exception", ex.what());
+	}
+	catch (...)
+	{
+		destroy();
+		try
+		{
+			std::exception_ptr eptr = std::current_exception();
+			std::rethrow_exception(eptr);
+		}
+		catch (const std::exception& ex)
+		{
+			ExceptionLogger::logException(DateTime(), "exceptions.txt",
+				"Unknown Exception", ex.what());
+		}
 	}
 }
 
@@ -67,17 +83,33 @@ String::String(const char* value)
 	try
 	{
 		setCapacity(lastIndex);
-		setBuffer(value);
-		lastIndex = strlen(value) - 1;
+		setBufferAndLastIndex(value, strlen(value) - 1);
 	}
 	catch (const std::invalid_argument& invalidArgEx)
 	{
 		destroy();
-		buffer = new char[capacity + 1];
-		buffer[0] = '\0';
-		lastIndex = 0;
 		ExceptionLogger::logException(DateTime(), "exceptions.txt",
 			"Invalid Argument Exception", invalidArgEx.what());
+	}
+	catch (const std::exception& ex)
+	{
+		destroy();
+		ExceptionLogger::logException(DateTime(), "exceptions.txt",
+			"Exception", ex.what());
+	}
+	catch (...)
+	{
+		destroy();
+		try
+		{
+			std::exception_ptr eptr = std::current_exception();
+			std::rethrow_exception(eptr);
+		}
+		catch (const std::exception& ex)
+		{
+			ExceptionLogger::logException(DateTime(), "exceptions.txt",
+				"Unknown Exception", ex.what());
+		}
 	}
 }
 
@@ -116,18 +148,34 @@ String& String::operator=(const char* other)
 {
 	try
 	{
-		(lastIndex % 8 == 0) ? setCapacity(lastIndex) : setCapacity(lastIndex - lastIndex % 8);
-		setBuffer(other);
-		lastIndex = strlen(other) - 1;
+		setCapacity(lastIndex * 2);
+		setBufferAndLastIndex(other, strlen(other) - 1);
 	}
 	catch (const std::invalid_argument& invalidArgEx)
 	{
 		destroy();
-		buffer = new char[capacity + 1];
-		buffer[0] = '\0';
-		lastIndex = 0;
 		ExceptionLogger::logException(DateTime(), "exceptions.txt",
 			"Invalid Argument Exception", invalidArgEx.what());
+	}
+	catch (const std::exception& ex)
+	{
+		destroy();
+		ExceptionLogger::logException(DateTime(), "exceptions.txt",
+			"Exception", ex.what());
+	}
+	catch (...)
+	{
+		destroy();
+		try
+		{
+			std::exception_ptr eptr = std::current_exception();
+			std::rethrow_exception(eptr);
+		}
+		catch (const std::exception& ex)
+		{
+			ExceptionLogger::logException(DateTime(), "exceptions.txt",
+				"Unknown Exception", ex.what());
+		}
 	}
 
 	return *this;
@@ -157,7 +205,6 @@ bool String::operator!=(const String& other)
 String& String::operator+(const String& other)
 {
 	String word = String(buffer);
-	destroy();
 	word += String(other);
 
 	return word;
@@ -165,8 +212,10 @@ String& String::operator+(const String& other)
 
 String& String::operator+(const char* other)
 {
-	String otherWord = String(other);
-	return operator+(otherWord);
+	String word = String(buffer);
+	word += String(other);
+
+	return word;
 }
 
 String& String::operator+=(const String& other)
@@ -184,12 +233,20 @@ String& String::operator+=(const String& other)
 
 String& String::operator+=(const char* other)
 {
-	return operator+(other);
+	char* tempBuffer = buffer;
+	size_t tempBufferLenght = strlen(tempBuffer) + strlen(other);
+
+	destroy();
+	buffer = new char[tempBufferLenght + 1];
+	strcpy_s(buffer, (tempBufferLenght + 1), tempBuffer);
+	strcat_s(buffer, (tempBufferLenght + 1), other);
+
+	return *this;
 }
 
-char& String::operator[](const size_t index) const
+char& String::operator[](const size_t& index) const
 {
-	if (0 <= index && index <= lastIndex)
+	if (index <= lastIndex && lastIndex <= capacity)
 	{
 		return buffer[index];
 	}
@@ -199,9 +256,9 @@ char& String::operator[](const size_t index) const
 	}
 }
 
-const char String::operator[](const size_t index)
+const char String::operator[](const size_t& index)
 {
-	if (0 <= index && index <= lastIndex)
+	if (index <= lastIndex && lastIndex <= capacity)
 	{
 		return buffer[index];
 	}
@@ -211,23 +268,23 @@ const char String::operator[](const size_t index)
 	}
 }
 
-bool String::isEmpty() const
+const bool String::isEmpty() const
 {
 	return (lastIndex == 0);
 }
 
-bool String::compare(const String& other) const
+const bool String::compare(const String& other) const
 {
 	return (strcmp(buffer, other.buffer) == 0);
 }
 
-bool String::compare(const char* other) const
+const bool String::compare(const char* other) const
 {
 	String otherWord = String(other);
 	return compare(otherWord);
 }
 
-String& String::pushBack(const char symbol)
+String& String::pushBack(const char& symbol)
 {
 	if (lastIndex <= capacity)
 	{
@@ -280,6 +337,17 @@ String& String::popBack()
 void String::toString() const
 {
 	std::cout << buffer;
+}
+
+String& append(const String& firstString, const String& secondString)
+{
+	char* s = new char[strlen(firstString.getBuffer()) + strlen(secondString.getBuffer()) + 1];
+	strcpy_s(s, strlen(firstString.getBuffer()) + strlen(secondString.getBuffer()) + 1, firstString.getBuffer());
+	strcat_s(s, strlen(firstString.getBuffer()) + strlen(secondString.getBuffer()) + 1, secondString.getBuffer());
+
+	String cs = String(s);
+
+	return cs;
 }
 
 std::ostream& operator<<(std::ostream& out, const String str)

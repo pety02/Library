@@ -61,7 +61,7 @@ private:
 	/// a valid title and if it so, it sets <c>title</c> value as a 
 	/// title of the article.
 	/// </param>
-	void setTitle(const String title);
+	void setTitle(const String& title);
 	
 	/// <summary>
 	/// <c>setAuthour(const String authour)</c> is a set method in the <c>Article</c> class.
@@ -79,10 +79,10 @@ private:
 	/// authour name and if it so, it sets <c>authour</c> value as an authour 
 	/// name of the article.
 	/// </param>
-	void setAuthour(const String authour);
+	void setAuthour(const String& authour);
 	
 	/// <summary>
-	/// <c>setKeywords(const String* keywords, const size_t keywordsCount)</c> is 
+	/// <c>setKeywordsAndKeywordsCount(const String* keywords, const size_t keywordsCount)</c> is 
 	/// a set method in the <c>Article</c> class. If keywords (parameter value 
 	/// of type <c>const String*</c>) and keywordsCount (parameter value of type 
 	/// <c>const size_t</c>) are valid, it sets keywords as a value of an article 
@@ -101,24 +101,7 @@ private:
 	/// can be a valid article keywords count and if it so, it sets <c>keywordsCount</c> value 
 	/// as a keywords count of the article.
 	/// </param>
-	void setKeywords(const String* keywords, const size_t keywordsCount);
-	
-	/// <summary>
-	/// <c>setKeywordsCount(const size_t keywordsCount)</c> is a set method in the <c>Article</c> class.
-	/// If keywordsCount (parameter value of type <c>const size_t</c>) is valid,
-	/// it sets it as a value of an article keywordsCount field. But if keywordsCount 
-	/// (parameter value of type <c>const size_t</c>) is not valid, it throws a 
-	/// <exception>std::invalid_argument</exception> exception with a custom message. 
-	/// If article which called this method is null pointer, it throws a <exception>
-	/// std::runtime_error</exception> exception with a custom message. This method 
-	/// does not return anything.
-	/// </summary>
-	/// 
-	/// <param name="keywordsCount"> 
-	/// takes a <c>const size_t</c> value, checks wheather it can be a valid article keywords 
-	/// count and if it so, it sets <c>keywordsCount</c> value as a keywords count of the article.
-	/// </param>
-	void setKeywordsCount(const size_t keywordsCount);
+	void setKeywordsAndKeywordsCount(const String* keywords, const size_t& keywordsCount);
 
 	/// <summary>
 	/// <c>copy(const Article&amp; other)</c> is a method in the <c>Article</c> class.
@@ -163,6 +146,16 @@ public:
 	/// <c>Article</c> object fields.
 	/// </param>
 	Article(const Article& other);
+
+	/// <summary>
+	/// <c>operator=(const Article&amp; other)</c> is a pre-defined operator in <c>Article</c> class.
+	/// </summary>
+	/// 
+	/// <returns>
+	/// If this article is not a null pointer, the operator returns this <c>Article</c> object aligned to othe <c>Article</c> object. 
+	/// But if this article is null pointer, the methods throws <exception>std::runtime_error</exception> with a custom message.
+	/// </returns>
+	Article& operator=(const Article& other);
 	
 	/// <summary>
 	/// <c>Article(const String title, const String authour, const String* keywords, const size_t keywordsCount)</c> is a constructor 
@@ -185,7 +178,7 @@ public:
 	/// <param name="keywordsCount">
 	/// takes <c>const size_t</c> value and treats it as keywordsCount value.
 	/// </param>
-	Article(const String title, const String authour, const String* keywords, const size_t keywordsCount);
+	Article(const String& title, const String& authour, const String* keywords, const size_t& keywordsCount);
 	
 	/// <summary>
 	/// <c>~Article()</c> is a destructor in the <c>Article</c> class. It frees up dynamically allocated 
@@ -201,7 +194,7 @@ public:
 	/// If this article is not a null pointer, the method returns the article title. But if this article is null pointer, 
 	/// the methods throws a <exception>std::runtime_error</exception> with a custom message.
 	/// </returns>
-	String getTitle() const;
+	const String getTitle() const;
 
 	/// <summary>
 	/// <c>getAuthour()</c> is a method in <c>Article</c> class.
@@ -211,7 +204,7 @@ public:
 	/// If this article is not a null pointer, the method returns the article authour name. But if this article is null pointer, 
 	/// the methods throws a <exception>std::runtime_error</exception> with a custom message.
 	/// </returns>
-	String getAuthour() const;
+	const String getAuthour() const;
 
 	/// <summary>
 	/// <c>getKeywords()</c> is a method in <c>Article</c> class.
@@ -221,7 +214,7 @@ public:
 	/// If this article is not a null pointer, the method returns the article keywords array. But if this article is null pointer, 
 	/// the methods throws a <exception>std::runtime_error</exception> with a custom message.
 	/// </returns>
-	String* getKeywords() const;
+	const String* getKeywords() const;
 
 	/// <summary>
 	/// <c>getKeywordsCount()</c> is a method in <c>Article</c> class.
@@ -231,17 +224,7 @@ public:
 	/// If this article is not a null pointer, the method returns the article keywords count. But if this article is null pointer, 
 	/// the methods throws a <exception>std::runtime_error</exception> with a custom message.
 	/// </returns>
-	size_t getKeywordsCount() const;
-
-	/// <summary>
-	/// <c>operator=(const Article&amp; other)</c> is a pre-defined operator in <c>Article</c> class.
-	/// </summary>
-	/// 
-	/// <returns>
-	/// If this article is not a null pointer, the operator returns this <c>Article</c> object aligned to othe <c>Article</c> object. 
-	/// But if this article is null pointer, the methods throws <exception>std::runtime_error</exception> with a custom message.
-	/// </returns>
-	Article& operator=(const Article& other);
+	const size_t getKeywordsCount() const;
 };
 
 #endif

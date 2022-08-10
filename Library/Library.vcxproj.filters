@@ -65,9 +65,6 @@
     <ClInclude Include="Article.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ItemValidator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Users.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -84,6 +81,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ExceptionLogger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LibraryItemValidator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

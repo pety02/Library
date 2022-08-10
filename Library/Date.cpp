@@ -22,17 +22,17 @@ unsigned int Date::getDaysInMonth()
 	}
 }
 
-void Date::setYear(const unsigned int year)
+void Date::setYear(const unsigned int& year)
 {
 	this->year = (1900 <= year && year <= 2022) ? year : throw std::invalid_argument("Invalid year!");
 }
 
-void Date::setMonth(const unsigned int month)
+void Date::setMonth(const unsigned int& month)
 {
 	this->month = (1 <= month && month <= 12) ? month : throw std::invalid_argument("Invalid month!");
 }
 
-void Date::setDay(const unsigned int day)
+void Date::setDay(const unsigned int& day)
 {
 	this->day = (1 <= day && day <= getDaysInMonth()) ? day : throw std::invalid_argument("Invalid day!");
 }
@@ -50,11 +50,30 @@ Date::Date()
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{
-		ExceptionLogger::logException("exceptions.txt", "Invalid Argument Exception", invalidArgumentEx.what());
+		ExceptionLogger::logException("exceptions.txt", 
+			"Invalid Argument Exception", invalidArgumentEx.what());
+	}
+	catch (const std::exception& ex)
+	{
+		ExceptionLogger::logException(DateTime(), "exceptions.txt",
+			"Exception", ex.what());
+	}
+	catch (...)
+	{
+		try
+		{
+			std::exception_ptr eptr = std::current_exception();
+			std::rethrow_exception(eptr);
+		}
+		catch (const std::exception& ex)
+		{
+			ExceptionLogger::logException(DateTime(), "exceptions.txt",
+				"Unknown Exception", ex.what());
+		}
 	}
 }
 
-Date::Date(const unsigned int year, const unsigned int month, const unsigned int day)
+Date::Date(const unsigned int& year, const unsigned int& month, const unsigned int& day)
 {
 	try
 	{
@@ -64,13 +83,27 @@ Date::Date(const unsigned int year, const unsigned int month, const unsigned int
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{
-		ExceptionLogger::logException("exceptions.txt", "Invalid Argument Exception", invalidArgumentEx.what());
+		ExceptionLogger::logException("exceptions.txt",
+			"Invalid Argument Exception", invalidArgumentEx.what());
 	}
-}
-
-Date::~Date()
-{
-	
+	catch (const std::exception& ex)
+	{
+		ExceptionLogger::logException(DateTime(), "exceptions.txt",
+			"Exception", ex.what());
+	}
+	catch (...)
+	{
+		try
+		{
+			std::exception_ptr eptr = std::current_exception();
+			std::rethrow_exception(eptr);
+		}
+		catch (const std::exception& ex)
+		{
+			ExceptionLogger::logException(DateTime(), "exceptions.txt",
+				"Unknown Exception", ex.what());
+		}
+	}
 }
 
 const unsigned int Date::getYear() const
@@ -88,7 +121,7 @@ const unsigned int Date::getDay() const
 	return day;
 }
 
-bool Date::operator>(const Date& other) const
+const bool Date::operator>(const Date& other) const
 {
 	if ((year > other.year) || (year == other.year && month > other.month) || (month == other.month && day > other.day))
 	{
@@ -98,7 +131,7 @@ bool Date::operator>(const Date& other) const
 	return false;
 }
 
-bool Date::operator>=(const Date& other) const
+const bool Date::operator>=(const Date& other) const
 {
 	if (*this == other || *this > other)
 	{
@@ -108,7 +141,7 @@ bool Date::operator>=(const Date& other) const
 	return false;
 }
 
-bool Date::operator<(const Date& other) const
+const bool Date::operator<(const Date& other) const
 {
 	if (*this <= other && *this != other)
 	{
@@ -118,7 +151,7 @@ bool Date::operator<(const Date& other) const
 	return false;
 }
 
-bool Date::operator<=(const Date& other) const
+const bool Date::operator<=(const Date& other) const
 {
 	if (*this == other || *this < other)
 	{
@@ -128,7 +161,7 @@ bool Date::operator<=(const Date& other) const
 	return false;
 }
 
-bool Date::operator==(const Date& other) const
+const bool Date::operator==(const Date& other) const
 {
 	if (year == other.year && month == other.month && day == other.day)
 	{
@@ -138,7 +171,7 @@ bool Date::operator==(const Date& other) const
 	return false;
 }
 
-bool Date::operator!=(const Date& other) const
+const bool Date::operator!=(const Date& other) const
 {
 	if (*this != other)
 	{
@@ -174,21 +207,21 @@ Date& Date::operator--(const int)
 	return previousDate;
 }
 
-Date& Date::operator+(const int days) const
+const Date& Date::operator+(const int& days) const
 {
 	Date increasedDate(*this);
 	increasedDate += days;
 	return increasedDate;
 }
 
-Date& Date::operator-(const int days) const
+const Date& Date::operator-(const int& days) const
 {
 	Date decreasedDate(*this);
 	decreasedDate -= days;
 	return decreasedDate;
 }
 
-Date& Date::operator+=(const int days)
+Date& Date::operator+=(const int& days)
 {
 	this->day += days;
 
@@ -205,7 +238,7 @@ Date& Date::operator+=(const int days)
 	return *this;
 }
 
-Date& Date::operator-=(const int days)
+Date& Date::operator-=(const int& days)
 {
 	this->day -= days;
 	while (this->day <= 0)
