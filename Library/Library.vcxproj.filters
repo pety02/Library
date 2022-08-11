@@ -13,78 +13,162 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Entities">
+      <UniqueIdentifier>{418c3c38-0bd6-410f-809f-b26bcb12fad4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helpers">
+      <UniqueIdentifier>{a0e691a1-81e8-4ed6-b170-7d646e3a2f5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{b9cd71cf-af20-4416-82da-a88b35ee4b15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\CommandPattern">
+      <UniqueIdentifier>{f926d3bb-405d-494d-a02b-4917f458625d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CommandPattern">
+      <UniqueIdentifier>{0335f82b-3889-4a18-9788-823782cfc0da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FactoryPattern">
+      <UniqueIdentifier>{dec5105f-edbd-474d-8a92-a57915062950}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FactoryPattern">
+      <UniqueIdentifier>{783c3e9b-8ab7-4e04-8543-731d1ded79ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helpers\Loggers">
+      <UniqueIdentifier>{914c3928-cbc6-4c2b-8556-9ce68e8da0bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helpers\Validators">
+      <UniqueIdentifier>{251b236e-3f2a-47d2-8e3e-2706e83aa68d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\CommandPattern\Invokers">
+      <UniqueIdentifier>{78a48ec7-d2a9-475c-8895-2b7367d841f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\CommandPattern\Receivers">
+      <UniqueIdentifier>{fd6761d9-838a-4396-950e-2ea838f42258}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\CommandPattern\Actions">
+      <UniqueIdentifier>{bd24744e-8ae2-4819-877a-34a65f958fcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities\Library">
+      <UniqueIdentifier>{290eb7a0-54c7-4588-82c9-d7abba55a207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities\Users">
+      <UniqueIdentifier>{51f50c9c-9ed7-4327-b30e-92b479907c05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities\Others">
+      <UniqueIdentifier>{2d7e5fef-27f0-412b-8a8e-62d25ff011c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities\Users">
+      <UniqueIdentifier>{89ac6c08-e4df-4336-9236-86b94416922e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities\Others">
+      <UniqueIdentifier>{b26f610b-fe6d-48a2-bd2d-19239b1c8804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities\Library">
+      <UniqueIdentifier>{648e8dcf-0758-418f-a35b-49099d2e32df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CommandPattern\Receivers">
+      <UniqueIdentifier>{9eaa65a3-d393-4558-94a3-e5836e2ea6fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CommandPattern\Invokers">
+      <UniqueIdentifier>{c29f4d12-d39b-4651-a9f4-6eb7161b5b8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CommandPattern\Actions">
+      <UniqueIdentifier>{3e3af3fe-191e-4b47-8fe7-d9dcaa48ae8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Library.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LibraryItem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="String.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Book.cpp">
+      <Filter>Source Files\Entities\Library</Filter>
     </ClCompile>
     <ClCompile Include="Article.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Entities\Library</Filter>
     </ClCompile>
-    <ClCompile Include="Book.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="LibraryItem.cpp">
+      <Filter>Source Files\Entities\Library</Filter>
     </ClCompile>
     <ClCompile Include="Series.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="User.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Date.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DateTime.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Reader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Entities\Library</Filter>
     </ClCompile>
     <ClCompile Include="Admin.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Entities\Users</Filter>
     </ClCompile>
-    <ClCompile Include="UserController.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Reader.cpp">
+      <Filter>Source Files\Entities\Users</Filter>
     </ClCompile>
-    <ClCompile Include="LibraryItemController.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="User.cpp">
+      <Filter>Source Files\Entities\Users</Filter>
+    </ClCompile>
+    <ClCompile Include="Date.cpp">
+      <Filter>Source Files\Entities\Others</Filter>
+    </ClCompile>
+    <ClCompile Include="DateTime.cpp">
+      <Filter>Source Files\Entities\Others</Filter>
+    </ClCompile>
+    <ClCompile Include="String.cpp">
+      <Filter>Source Files\Entities\Others</Filter>
+    </ClCompile>
+    <ClCompile Include="AllBooksCommand.cpp">
+      <Filter>Source Files\CommandPattern\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="LibraryManager.cpp">
+      <Filter>Source Files\CommandPattern\Receivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Invoker.cpp">
+      <Filter>Source Files\CommandPattern\Invokers</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Source Files\CommandPattern\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="LibraryInvoker.cpp">
+      <Filter>Source Files\CommandPattern\Invokers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LibraryItems.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="String.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Article.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Users.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dates.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UserValidator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UserController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LibraryItemController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ExceptionLogger.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Helpers\Validators</Filter>
     </ClInclude>
     <ClInclude Include="LibraryItemValidator.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Helpers\Validators</Filter>
+    </ClInclude>
+    <ClInclude Include="ExceptionLogger.h">
+      <Filter>Header Files\Helpers\Loggers</Filter>
+    </ClInclude>
+    <ClInclude Include="AllBooksCommand.h">
+      <Filter>Header Files\CommandPattern\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Header Files\CommandPattern\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="IReceiver.h">
+      <Filter>Header Files\CommandPattern\Receivers</Filter>
+    </ClInclude>
+    <ClInclude Include="LibraryManager.h">
+      <Filter>Header Files\CommandPattern\Receivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Article.h">
+      <Filter>Header Files\Entities\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="LibraryItems.h">
+      <Filter>Header Files\Entities\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Users.h">
+      <Filter>Header Files\Entities\Users</Filter>
+    </ClInclude>
+    <ClInclude Include="Dates.h">
+      <Filter>Header Files\Entities\Others</Filter>
+    </ClInclude>
+    <ClInclude Include="String.h">
+      <Filter>Header Files\Entities\Others</Filter>
+    </ClInclude>
+    <ClInclude Include="Invoker.h">
+      <Filter>Header Files\CommandPattern\Invokers</Filter>
+    </ClInclude>
+    <ClInclude Include="LibraryInvoker.h">
+      <Filter>Header Files\CommandPattern\Invokers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

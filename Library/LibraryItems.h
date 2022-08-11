@@ -5,6 +5,8 @@
 #include "String.h"
 #include "Article.h"
 
+size_t LibraryItem::id = 0;
+
 /// <summary>
 /// 
 /// </summary>
@@ -66,7 +68,7 @@ protected:
 	/// <summary>
 	/// 
 	/// </summary>
-	unsigned int id;
+	static unsigned int id;
 	
 	/// <summary>
 	/// 
@@ -204,7 +206,10 @@ private:
 	/// <summary>
 	/// 
 	/// </summary>
-	void setId();
+	void setId()
+	{
+		id = (unsigned int)this + 'b';
+	}
 	
 	/// <summary>
 	/// 
@@ -235,11 +240,6 @@ private:
 	/// 
 	/// </summary>
 	void destroy();
-
-	/// <summary>
-	/// 
-	/// </summary>
-	friend class ItemFactory;
 
 public:
 	/// <summary>
@@ -384,11 +384,6 @@ private:
 	/// 
 	/// </summary>
 	void destroy();
-
-	/// <summary>
-	/// 
-	/// </summary>
-	friend class ItemFactory;
 
 public:
 	/// <summary>

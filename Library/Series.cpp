@@ -2,7 +2,7 @@
 
 void Series::setId()
 {
-	id = (unsigned int)this + 's';
+	++id;
 }
 
 void Series::setIssn(const String& issn)

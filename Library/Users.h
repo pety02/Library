@@ -80,11 +80,6 @@ protected:
 	/// </summary>
 	void setLastLoginDateTime();
 
-	/// <summary>
-	/// 
-	/// </summary>
-	friend class UserFactory;
-
 public:
 	/// <summary>
 	/// 

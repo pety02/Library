@@ -2,7 +2,7 @@
 
 void Book::setId()
 {
-	id = (unsigned int)this + 'b';
+	++id;
 }
 
 void Book::setIsbn(const String& isbn)

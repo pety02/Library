@@ -6,7 +6,7 @@
 #include <fstream>
 #include "Dates.h"
 #include "Users.h"
-#include "UserController.h"
+#include "UserValidator.h"
 
 /// <summary>
 /// 
@@ -44,8 +44,8 @@ int main()
     String pass;
     String reEnteredPass;
 
-    enterCredentials(unm, pass, reEnteredPass);
-    UserController::registerUser(unm, pass, reEnteredPass);
+    //enterCredentials(unm, pass, reEnteredPass);
+    //UserController::registerUser(unm, pass, reEnteredPass);
    
     return 0;
 }
