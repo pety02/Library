@@ -1,3 +1,4 @@
+#pragma warning(disable : 4996)
 #include "Dates.h"
 
 void DateTime::setHours(const unsigned int& hours)
@@ -20,7 +21,7 @@ DateTime::DateTime() : Date()
 	try
 	{
 		std::time_t t = std::time(0);
-		std::tm* now = std::localtime(&t);
+		std::tm* now = localtime(&t);
 
 		if (0 <= now->tm_min && now->tm_min <= 59)
 		{
@@ -53,26 +54,11 @@ DateTime::DateTime() : Date()
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{
-		ExceptionLogger::logException("exceptions.txt",
-			"Invalid Argument Exception", invalidArgumentEx.what());
+		
 	}
 	catch (const std::exception& ex)
 	{
-		ExceptionLogger::logException(DateTime(), "exceptions.txt",
-			"Exception", ex.what());
-	}
-	catch (...)
-	{
-		try
-		{
-			std::exception_ptr eptr = std::current_exception();
-			std::rethrow_exception(eptr);
-		}
-		catch (const std::exception& ex)
-		{
-			ExceptionLogger::logException(DateTime(), "exceptions.txt",
-				"Unknown Exception", ex.what());
-		}
+		
 	}
 }
 
@@ -86,26 +72,11 @@ DateTime::DateTime(const unsigned int& year, const unsigned int& month, const un
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{
-		ExceptionLogger::logException("exceptions.txt",
-			"Invalid Argument Exception", invalidArgumentEx.what());
+		
 	}
 	catch (const std::exception& ex)
 	{
-		ExceptionLogger::logException(DateTime(), "exceptions.txt",
-			"Exception", ex.what());
-	}
-	catch (...)
-	{
-		try
-		{
-			std::exception_ptr eptr = std::current_exception();
-			std::rethrow_exception(eptr);
-		}
-		catch (const std::exception& ex)
-		{
-			ExceptionLogger::logException(DateTime(), "exceptions.txt",
-				"Unknown Exception", ex.what());
-		}
+		
 	}
 }
 
@@ -120,26 +91,11 @@ DateTime::DateTime(const unsigned int& year, const unsigned int& month, const un
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{
-		ExceptionLogger::logException("exceptions.txt",
-			"Invalid Argument Exception", invalidArgumentEx.what());
+		
 	}
 	catch (const std::exception& ex)
 	{
-		ExceptionLogger::logException(DateTime(), "exceptions.txt",
-			"Exception", ex.what());
-	}
-	catch (...)
-	{
-		try
-		{
-			std::exception_ptr eptr = std::current_exception();
-			std::rethrow_exception(eptr);
-		}
-		catch (const std::exception& ex)
-		{
-			ExceptionLogger::logException(DateTime(), "exceptions.txt",
-				"Unknown Exception", ex.what());
-		}
+		
 	}
 }
 

@@ -5,8 +5,6 @@
 #include "String.h"
 #include "Article.h"
 
-size_t LibraryItem::id = 0;
-
 /// <summary>
 /// 
 /// </summary>
@@ -206,10 +204,7 @@ private:
 	/// <summary>
 	/// 
 	/// </summary>
-	void setId()
-	{
-		id = (unsigned int)this + 'b';
-	}
+	void setId();
 	
 	/// <summary>
 	/// 
@@ -464,5 +459,7 @@ public:
 	/// <returns></returns>
 	const size_t getArticlesCount() const;
 };
+
+
 
 #endif

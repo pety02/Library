@@ -1,3 +1,4 @@
+#pragma warning(disable : 4996)
 #pragma once
 #ifndef USERVALIDATOR_H
 #define USERVALIDATOR_H
@@ -112,8 +113,8 @@ public:
 			size_t counter = countCharactersInLine(in);
 			while (!in.eof())
 			{
-				in.getline(fullInputLine.getBuffer(), counter);
-				currentCredential = strtok(fullInputLine.getBuffer(), " |//");
+				//in.getline(fullInputLine.getBuffer(), counter);
+				//currentCredential = strtok(fullInputLine.getBuffer(), " |//");
 				usernameFromDB = currentCredential;
 				while (currentCredential != NULL)
 				{

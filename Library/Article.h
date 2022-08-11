@@ -3,6 +3,7 @@
 #define ARTICLE_H
 
 #include "String.h"
+#include "ExceptionLogger.h"
 
 /// <summary>
 /// <c>Article</c> is a class which describes an article as a part of

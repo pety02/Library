@@ -2,7 +2,6 @@
 #ifndef CUSTOMSTRING_H
 #define CUSTOMSTRING_H
 
-#include "ExceptionLogger.h"
 #include <iostream>
 #include <cstring>
 #include <stdexcept>

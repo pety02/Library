@@ -19,21 +19,21 @@ void enterCredentials(String &username, String &password, String& reEnteredPassw
     {
         std::cout << "in";
         std::cout << "Enter username: ";
-        std::cin >> username.getBuffer();
+        //std::cin >> username.getBuffer();
     } 
     while (!UserValidator::isValidUsername(username));
 
     do
     {
         std::cout << "Enter password: ";
-        std::cin >> password.getBuffer();
+        //std::cin >> password.getBuffer();
     } 
     while (!UserValidator::isValidPassword(password));
 
     do
     {
         std::cout << "Re-enter password: ";
-        std::cin >> reEnteredPassword.getBuffer();
+        //std::cin >> reEnteredPassword.getBuffer();
     } 
     while (!UserValidator::isValidPassword(reEnteredPassword) || reEnteredPassword != password);
 }

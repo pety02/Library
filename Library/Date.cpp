@@ -50,26 +50,11 @@ Date::Date()
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{
-		ExceptionLogger::logException("exceptions.txt", 
-			"Invalid Argument Exception", invalidArgumentEx.what());
+		
 	}
 	catch (const std::exception& ex)
 	{
-		ExceptionLogger::logException(DateTime(), "exceptions.txt",
-			"Exception", ex.what());
-	}
-	catch (...)
-	{
-		try
-		{
-			std::exception_ptr eptr = std::current_exception();
-			std::rethrow_exception(eptr);
-		}
-		catch (const std::exception& ex)
-		{
-			ExceptionLogger::logException(DateTime(), "exceptions.txt",
-				"Unknown Exception", ex.what());
-		}
+		
 	}
 }
 
@@ -83,26 +68,11 @@ Date::Date(const unsigned int& year, const unsigned int& month, const unsigned i
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{
-		ExceptionLogger::logException("exceptions.txt",
-			"Invalid Argument Exception", invalidArgumentEx.what());
+		
 	}
 	catch (const std::exception& ex)
 	{
-		ExceptionLogger::logException(DateTime(), "exceptions.txt",
-			"Exception", ex.what());
-	}
-	catch (...)
-	{
-		try
-		{
-			std::exception_ptr eptr = std::current_exception();
-			std::rethrow_exception(eptr);
-		}
-		catch (const std::exception& ex)
-		{
-			ExceptionLogger::logException(DateTime(), "exceptions.txt",
-				"Unknown Exception", ex.what());
-		}
+		
 	}
 }
 

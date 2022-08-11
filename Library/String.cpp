@@ -48,28 +48,14 @@ String::String()
 	catch (const std::invalid_argument& invalidArgEx)
 	{
 		destroy();
-		ExceptionLogger::logException(DateTime(), "exceptions.txt", 
-			"Invalid Argument Exception", invalidArgEx.what());
 	}
 	catch (const std::exception& ex)
 	{
 		destroy();
-		ExceptionLogger::logException(DateTime(), "exceptions.txt",
-			"Exception", ex.what());
 	}
 	catch (...)
 	{
 		destroy();
-		try
-		{
-			std::exception_ptr eptr = std::current_exception();
-			std::rethrow_exception(eptr);
-		}
-		catch (const std::exception& ex)
-		{
-			ExceptionLogger::logException(DateTime(), "exceptions.txt",
-				"Unknown Exception", ex.what());
-		}
 	}
 }
 
@@ -88,28 +74,10 @@ String::String(const char* value)
 	catch (const std::invalid_argument& invalidArgEx)
 	{
 		destroy();
-		ExceptionLogger::logException(DateTime(), "exceptions.txt",
-			"Invalid Argument Exception", invalidArgEx.what());
 	}
 	catch (const std::exception& ex)
 	{
 		destroy();
-		ExceptionLogger::logException(DateTime(), "exceptions.txt",
-			"Exception", ex.what());
-	}
-	catch (...)
-	{
-		destroy();
-		try
-		{
-			std::exception_ptr eptr = std::current_exception();
-			std::rethrow_exception(eptr);
-		}
-		catch (const std::exception& ex)
-		{
-			ExceptionLogger::logException(DateTime(), "exceptions.txt",
-				"Unknown Exception", ex.what());
-		}
 	}
 }
 
@@ -154,28 +122,10 @@ String& String::operator=(const char* other)
 	catch (const std::invalid_argument& invalidArgEx)
 	{
 		destroy();
-		ExceptionLogger::logException(DateTime(), "exceptions.txt",
-			"Invalid Argument Exception", invalidArgEx.what());
 	}
 	catch (const std::exception& ex)
 	{
 		destroy();
-		ExceptionLogger::logException(DateTime(), "exceptions.txt",
-			"Exception", ex.what());
-	}
-	catch (...)
-	{
-		destroy();
-		try
-		{
-			std::exception_ptr eptr = std::current_exception();
-			std::rethrow_exception(eptr);
-		}
-		catch (const std::exception& ex)
-		{
-			ExceptionLogger::logException(DateTime(), "exceptions.txt",
-				"Unknown Exception", ex.what());
-		}
 	}
 
 	return *this;

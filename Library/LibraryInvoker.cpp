@@ -7,5 +7,5 @@ LibraryInvoker::LibraryInvoker(Command* command) : Invoker(command)
 
 void LibraryInvoker::invoke()
 {
-
+	command->execute();
 }

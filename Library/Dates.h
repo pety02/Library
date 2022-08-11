@@ -2,7 +2,6 @@
 #ifndef DATES_H
 #define DATES_H
 
-#include "ExceptionLogger.h"
 #include <iostream>
 #include <ctime>
 

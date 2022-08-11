@@ -4,7 +4,7 @@
 
 class Invoker
 {
-private:
+protected:
 	Command* command;
 
 public:

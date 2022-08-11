@@ -1,4 +1,5 @@
 #include "LibraryItemValidator.h"
+unsigned int LibraryItem::id = 0;
 
 void LibraryItem::setGenre(const Genre& genre)
 {
