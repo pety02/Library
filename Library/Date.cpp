@@ -18,7 +18,7 @@ unsigned int Date::getDaysInMonth()
 	case 10:
 	case 12: return 31;
 
-	default: throw std::exception("Invalid days in month count!");
+	default: throw std::invalid_argument("Invalid days in month count!");
 	}
 }
 

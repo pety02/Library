@@ -1,8 +1,8 @@
 #include "LibraryItemValidator.h"
 
-void Series::setId()
+void Series::setType()
 {
-	++id;
+	type = Type::SERIES;
 }
 
 void Series::setIssn(const String& issn)
@@ -57,6 +57,7 @@ void Series::copy(const Series& other)
 	setReleaseMonth(other.getReleaseMonth());
 	setNumber(other.getNumber());
 	setArticlesAndArticlesCount(other.getArticles(), other.getArticlesCount());
+	setType();
 }
 
 void Series::destroy()
@@ -74,6 +75,7 @@ Series::Series() : LibraryItem()
 		setReleaseMonth(1);
 		setNumber(0);
 		setArticlesAndArticlesCount(new Article[0], getArticlesCount());
+		setType();
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{
@@ -186,6 +188,7 @@ Series::Series(const String& title, const String& publisher, const Genre& genre,
 		setReleaseMonth(releaseMonth);
 		setNumber(number);
 		setArticlesAndArticlesCount(content, articlesCount);
+		setType();
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{

@@ -1,4 +1,6 @@
 #pragma once
+#ifndef COMMAND_H
+#define COMMAND_H
 
 #include "LibraryItems.h"
 #include "IReceiver.h"
@@ -13,3 +15,5 @@ public:
 
 	virtual void execute() = 0;
 };
+
+#endif

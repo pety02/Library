@@ -1,4 +1,6 @@
 #pragma once
+#ifndef INVOKER_H
+#define INVOKER_H
 
 #include "Command.h"
 
@@ -11,3 +13,5 @@ public:
 	Invoker(Command* command);
 	virtual void invoke() = 0;
 };
+
+#endif

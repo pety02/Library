@@ -1,4 +1,6 @@
 #pragma once
+#ifndef LIBRARYMANAGER_H
+#define LIBRARYMANAGER_H
 
 #include "IReceiver.h"
 #include "LibraryItems.h"
@@ -46,3 +48,5 @@ public:
 	void setAction(const TYPES::ACTIONS_LIST action);
 	void getResult();
 };
+
+#endif

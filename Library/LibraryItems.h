@@ -5,6 +5,12 @@
 #include "String.h"
 #include "Article.h"
 
+enum class Type
+{
+	BOOK,
+	SERIES
+};
+
 /// <summary>
 /// 
 /// </summary>
@@ -67,6 +73,11 @@ protected:
 	/// 
 	/// </summary>
 	static unsigned int id;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	Type type;
 	
 	/// <summary>
 	/// 
@@ -89,7 +100,13 @@ protected:
 	/// <summary>
 	/// 
 	/// </summary>
-	virtual void setId() = 0;
+	/// <param name="type"></param>
+	virtual void setType() = 0;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	void setId();
 
 	/// <summary>
 	/// 
@@ -112,7 +129,7 @@ public:
 	/// <summary>
 	/// 
 	/// </summary>
-	virtual ~LibraryItem() = 0;
+	virtual ~LibraryItem();
 
 	/// <summary>
 	/// 
@@ -173,6 +190,12 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	const double getRating() const;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns></returns>
+	const Type getType() const;
 };
 
 /// <summary>
@@ -190,7 +213,7 @@ private:
 	/// 
 	/// </summary>
 	String author;
-
+	 
 	/// <summary>
 	/// 
 	/// </summary>
@@ -204,7 +227,7 @@ private:
 	/// <summary>
 	/// 
 	/// </summary>
-	void setId();
+	void setType();
 	
 	/// <summary>
 	/// 
@@ -342,7 +365,8 @@ private:
 	/// <summary>
 	/// 
 	/// </summary>
-	void setId();
+	/// <param name="type"></param>
+	void setType();
 
 	/// <summary>
 	/// 
@@ -459,7 +483,5 @@ public:
 	/// <returns></returns>
 	const size_t getArticlesCount() const;
 };
-
-
 
 #endif

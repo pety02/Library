@@ -126,6 +126,12 @@
     <ClCompile Include="LibraryInvoker.cpp">
       <Filter>Source Files\CommandPattern\Invokers</Filter>
     </ClCompile>
+    <ClCompile Include="LibraryItemFactory.cpp">
+      <Filter>Source Files\FactoryPattern</Filter>
+    </ClCompile>
+    <ClCompile Include="UserFactory.cpp">
+      <Filter>Source Files\FactoryPattern</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UserValidator.h">
@@ -169,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="LibraryInvoker.h">
       <Filter>Header Files\CommandPattern\Invokers</Filter>
+    </ClInclude>
+    <ClInclude Include="LibraryItemFactory.h">
+      <Filter>Header Files\FactoryPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="UserFactory.h">
+      <Filter>Header Files\FactoryPattern</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

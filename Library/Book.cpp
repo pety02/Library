@@ -1,8 +1,8 @@
 #include "LibraryItemValidator.h"
 
-void Book::setId()
+void Book::setType()
 {
-	++id;
+	type = Type::BOOK;
 }
 
 void Book::setIsbn(const String& isbn)
@@ -51,6 +51,7 @@ void Book::copy(const Book& other)
 	setIsbn(other.getIsbn());
 	setAuthor(other.getAuthor());
 	setKeywordsAndKeywordsCount(other.getKeywords(), other.getKeywordsCount());
+	setType();
 }
 
 void Book::destroy()
@@ -66,6 +67,7 @@ Book::Book() : LibraryItem()
 		setIsbn(String());
 		setAuthor(String());
 		setKeywordsAndKeywordsCount(new String[keywordsCount], keywordsCount);
+		setType();
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{
@@ -179,6 +181,7 @@ Book::Book(const String& title, const String& publisher, const Genre& genre, con
 		setIsbn(isbn);
 		setAuthor(author);
 		setKeywordsAndKeywordsCount(keywords, keywordsCount);
+		setType();
 	}
 	catch (const std::invalid_argument& invalidArgumentEx)
 	{

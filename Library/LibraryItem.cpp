@@ -1,6 +1,11 @@
 #include "LibraryItemValidator.h"
 unsigned int LibraryItem::id = 0;
 
+void LibraryItem::setId()
+{
+	id += 1;
+}
+
 void LibraryItem::setGenre(const Genre& genre)
 {
 	this->genre = (LibraryItemValidator::isValidGenre(genre)) ? genre : throw std::invalid_argument("Invalid genre!");
@@ -89,6 +94,11 @@ LibraryItem::LibraryItem(const String& title, const String& publisher, const Gen
 	}
 }
 
+LibraryItem::~LibraryItem()
+{
+
+}
+
 void LibraryItem::setTitle(const String& title)
 {
 	this->title = (LibraryItemValidator::isValidTilte(title)) ? title : throw std::invalid_argument("Invalid title!");
@@ -137,4 +147,9 @@ const unsigned int LibraryItem::getReleaseYear() const
 const double LibraryItem::getRating() const
 {
 	return rating;
+}
+
+const Type LibraryItem::getType() const
+{
+	return type;
 }

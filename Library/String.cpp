@@ -300,7 +300,7 @@ String& append(const String& firstString, const String& secondString)
 	return cs;
 }
 
-std::ostream& operator<<(std::ostream& out, const String str)
+std::ostream& operator<<(std::ostream& out, const String& str)
 {
 	out << str.getBuffer();
 	return out;

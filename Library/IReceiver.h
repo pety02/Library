@@ -1,4 +1,6 @@
 #pragma once
+#ifndef IRECEIVER_H
+#define IRECEIVER_H
 
 namespace TYPES
 {
@@ -30,3 +32,5 @@ public:
 	virtual void setAction(const TYPES::ACTIONS_LIST action) = 0;
 	virtual void getResult() = 0;
 };
+
+#endif
